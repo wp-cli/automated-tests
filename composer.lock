@@ -2628,12 +2628,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/wp-cli.git",
-                "reference": "d60a32fb175e53ad06c227729ac12b9f6b49f662"
+                "reference": "be7ad000f877034e14bfb03ad6a8256ca995ddd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/d60a32fb175e53ad06c227729ac12b9f6b49f662",
-                "reference": "d60a32fb175e53ad06c227729ac12b9f6b49f662",
+                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/be7ad000f877034e14bfb03ad6a8256ca995ddd3",
+                "reference": "be7ad000f877034e14bfb03ad6a8256ca995ddd3",
                 "shasum": ""
             },
             "require": {
@@ -2720,7 +2720,7 @@
                 "cli",
                 "wordpress"
             ],
-            "time": "2017-05-19 15:42:40"
+            "time": "2017-05-19 16:06:22"
         }
     ],
     "packages-dev": [
