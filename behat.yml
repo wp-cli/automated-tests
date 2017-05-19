@@ -3,136 +3,136 @@
 default:
   paths:
     features: 'vendor/wp-cli/wp-cli/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/wp-cli/features/bootstrap'
 
 # wp cache
 wp-cli/cache-command:
   paths:
     features: 'vendor/wp-cli/cache-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/cache-command/features/bootstrap'
 
 # wp checksum
 wp-cli/checksum-command:
   paths:
     features: 'vendor/wp-cli/checksum-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/checksum-command/features/bootstrap'
 
 # wp config
 wp-cli/config-command:
   paths:
     features: 'vendor/wp-cli/config-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/config-command/features/bootstrap'
 
 # wp core
 wp-cli/core-command:
   paths:
     features: 'vendor/wp-cli/core-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/core-command/features/bootstrap'
 
 # wp cron
 wp-cli/cron-command:
   paths:
     features: 'vendor/wp-cli/cron-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/cron-command/features/bootstrap'
 
 # wp db
 wp-cli/db-command:
   paths:
     features: 'vendor/wp-cli/db-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/db-command/features/bootstrap'
 
 # wp comment | wp menu | wp network | wp option | wp post | wp site | wp taxonomy | wp term | wp user
 wp-cli/entity-command:
   paths:
     features: 'vendor/wp-cli/entity-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/entity-command/features/bootstrap'
 
 # wp eval
 wp-cli/eval-command:
   paths:
     features: 'vendor/wp-cli/eval-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/eval-command/features/bootstrap'
 
 # wp export
 wp-cli/export-command:
   paths:
     features: 'vendor/wp-cli/export-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/export-command/features/bootstrap'
 
 # wp plugin | wp theme
 wp-cli/extension-command:
   paths:
     features: 'vendor/wp-cli/extension-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/extension-command/features/bootstrap'
 
 # wp import
 wp-cli/import-command:
   paths:
     features: 'vendor/wp-cli/import-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/import-command/features/bootstrap'
 
 # wp language
 wp-cli/language-command:
   paths:
     features: 'vendor/wp-cli/language-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/language-command/features/bootstrap'
 
 # wp media
 wp-cli/media-command:
   paths:
     features: 'vendor/wp-cli/media-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/media-command/features/bootstrap'
 
 # wp package
 wp-cli/package-command:
   paths:
     features: 'vendor/wp-cli/package-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/package-command/features/bootstrap'
 
 # wp rewrite
 wp-cli/rewrite-command:
   paths:
     features: 'vendor/wp-cli/rewrite-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/rewrite-command/features/bootstrap'
 
 # wp role
 wp-cli/role-command:
   paths:
     features: 'vendor/wp-cli/role-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/role-command/features/bootstrap'
 
 # wp scaffold
 wp-cli/scaffold-command:
   paths:
     features: 'vendor/wp-cli/scaffold-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/scaffold-command/features/bootstrap'
 
 # wp search-replace
 wp-cli/search-replace-command:
   paths:
     features: 'vendor/wp-cli/search-replace-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/search-replace-command/features/bootstrap'
 
 # wp server
 wp-cli/server-command:
   paths:
     features: 'vendor/wp-cli/server-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/server-command/features/bootstrap'
 
 # wp shell
 wp-cli/shell-command:
   paths:
     features: 'vendor/wp-cli/shell-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/shell-command/features/bootstrap'
 
 # wp super-admin
 wp-cli/super-admin-command:
   paths:
     features: 'vendor/wp-cli/super-admin-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/super-admin-command/features/bootstrap'
 
 # wp widget
 wp-cli/widget-command:
   paths:
     features: 'vendor/wp-cli/widget-command/features'
-    bootstrap: 'features/bootstrap'
+    bootstrap: 'vendor/wp-cli/widget-command/features/bootstrap'
