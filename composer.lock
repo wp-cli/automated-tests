@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a490218ee68434fc1559391f3f4e6df5",
+    "content-hash": "d2a53e85234278c147e506dc0f25d864",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2628,12 +2628,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/wp-cli.git",
-                "reference": "93addd41aa5fc56df59f0038af6b51df4ea3f51e"
+                "reference": "01ae47fcc156dca77708f43a08c7045deb914788"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/93addd41aa5fc56df59f0038af6b51df4ea3f51e",
-                "reference": "93addd41aa5fc56df59f0038af6b51df4ea3f51e",
+                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/01ae47fcc156dca77708f43a08c7045deb914788",
+                "reference": "01ae47fcc156dca77708f43a08c7045deb914788",
                 "shasum": ""
             },
             "require": {
@@ -2719,7 +2719,7 @@
                 "cli",
                 "wordpress"
             ],
-            "time": "2017-05-19 11:01:18"
+            "time": "2017-05-19 11:56:09"
         }
     ],
     "packages-dev": [
@@ -3287,7 +3287,7 @@
             "support": {
                 "source": "https://github.com/wp-cli/composer-changelogs/tree/php53"
             },
-            "time": "2017-03-29 14:27:14"
+            "time": "2017-03-29T14:27:14+00:00"
         },
         {
             "name": "roave/security-advisories",
