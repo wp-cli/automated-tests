@@ -18,10 +18,6 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/wp-cli/composer-changelogs"
-		},
-		{
-			"type": "path",
-			"url": "/Users/alain/dev/wp-cli/phar-build-wp-cli"
 		}
 	],
 	"minimum-stability": "dev",
