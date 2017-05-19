@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d94d2cb8714843575e17ccdad68c200d",
+    "content-hash": "26c302b9f541ef6c08c9935431f92994",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2624,16 +2624,16 @@
         },
         {
             "name": "wp-cli/wp-cli",
-            "version": "dev-master",
+            "version": "dev-optimize-autoloader-paths",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/wp-cli.git",
-                "reference": "9fda2a75c459b120d887b943eb8b5d97acebf98e"
+                "reference": "02a353812d105af132beefd0f8952f05747ee18b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/9fda2a75c459b120d887b943eb8b5d97acebf98e",
-                "reference": "9fda2a75c459b120d887b943eb8b5d97acebf98e",
+                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/02a353812d105af132beefd0f8952f05747ee18b",
+                "reference": "02a353812d105af132beefd0f8952f05747ee18b",
                 "shasum": ""
             },
             "require": {
@@ -2719,7 +2719,7 @@
                 "cli",
                 "wordpress"
             ],
-            "time": "2017-05-19 07:25:31"
+            "time": "2017-05-19 07:55:36"
         }
     ],
     "packages-dev": [
@@ -3429,7 +3429,7 @@
         {
             "alias": "1.2.0-alpha",
             "alias_normalized": "1.2.0.0-alpha",
-            "version": "9999999-dev",
+            "version": "dev-optimize-autoloader-paths",
             "package": "wp-cli/wp-cli"
         },
         {
