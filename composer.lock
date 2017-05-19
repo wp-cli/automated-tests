@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3f395d7f848a7c59d1bc0480490a48f",
+    "content-hash": "d94d2cb8714843575e17ccdad68c200d",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2625,11 +2625,16 @@
         {
             "name": "wp-cli/wp-cli",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/wp-cli.git",
+                "reference": "9fda2a75c459b120d887b943eb8b5d97acebf98e"
+            },
             "dist": {
-                "type": "path",
-                "url": "/Users/alain/dev/wp-cli/phar-build-wp-cli",
-                "reference": "f2205f70ce06e2db266cc11845c2663022cb28fc",
-                "shasum": null
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/9fda2a75c459b120d887b943eb8b5d97acebf98e",
+                "reference": "9fda2a75c459b120d887b943eb8b5d97acebf98e",
+                "shasum": ""
             },
             "require": {
                 "composer/composer": "^1.2.0",
@@ -2704,6 +2709,7 @@
                     "": "php/commands/src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2713,11 +2719,7 @@
                 "cli",
                 "wordpress"
             ],
-            "support": {
-                "issues": "https://github.com/wp-cli/wp-cli/issues",
-                "source": "https://github.com/wp-cli/wp-cli",
-                "docs": "https://make.wordpress.org/cli/handbook/"
-            }
+            "time": "2017-05-19 07:25:31"
         }
     ],
     "packages-dev": [
@@ -3285,7 +3287,7 @@
             "support": {
                 "source": "https://github.com/wp-cli/composer-changelogs/tree/php53"
             },
-            "time": "2017-03-29T14:27:14+00:00"
+            "time": "2017-03-29 14:27:14"
         },
         {
             "name": "roave/security-advisories",
