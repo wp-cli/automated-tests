@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -x
 
 # Run the functional tests for the framework
 BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER=vendor/wp-cli/wp-cli/features php ci/behat-tags.php)
