@@ -28,7 +28,7 @@
 	"prefer-stable": true,
 	"require": {
 		"php": ">=5.3.29",
-		"wp-cli/wp-cli": "dev-master as 1.2.0-alpha"
+		"wp-cli/wp-cli": "dev-master#9fda2a75c459b120d887b943eb8b5d97acebf98e as 1.2.0-alpha"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "3.7.*",
