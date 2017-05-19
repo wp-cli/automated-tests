@@ -24,7 +24,7 @@
 	"prefer-stable": true,
 	"require": {
 		"php": ">=5.3.29",
-		"wp-cli/wp-cli": "dev-optimize-autoloader-paths#02a353812d105af132beefd0f8952f05747ee18b as 1.2.0-alpha"
+		"wp-cli/wp-cli": "dev-optimize-autoloader-paths#93addd41aa5fc56df59f0038af6b51df4ea3f51e as 1.2.0-alpha"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "3.7.*",

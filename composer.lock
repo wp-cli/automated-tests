@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "26c302b9f541ef6c08c9935431f92994",
+    "content-hash": "a490218ee68434fc1559391f3f4e6df5",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2628,12 +2628,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/wp-cli.git",
-                "reference": "02a353812d105af132beefd0f8952f05747ee18b"
+                "reference": "93addd41aa5fc56df59f0038af6b51df4ea3f51e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/02a353812d105af132beefd0f8952f05747ee18b",
-                "reference": "02a353812d105af132beefd0f8952f05747ee18b",
+                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/93addd41aa5fc56df59f0038af6b51df4ea3f51e",
+                "reference": "93addd41aa5fc56df59f0038af6b51df4ea3f51e",
                 "shasum": ""
             },
             "require": {
@@ -2719,7 +2719,7 @@
                 "cli",
                 "wordpress"
             ],
-            "time": "2017-05-19 07:55:36"
+            "time": "2017-05-19 11:01:18"
         }
     ],
     "packages-dev": [
