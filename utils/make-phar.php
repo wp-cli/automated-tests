@@ -1,6 +1,6 @@
 <?php
 
-define( 'WP_CLI_ROOT', dirname( dirname( __FILE__ ) ) );
+define( 'WP_CLI_ROOT', dirname( __DIR__ ) . '/vendor/wp-cli/wp-cli' );
 
 if ( file_exists( WP_CLI_ROOT . '/vendor/autoload.php' ) ) {
 	define( 'WP_CLI_BASE_PATH', WP_CLI_ROOT );
@@ -97,7 +97,7 @@ foreach ( $finder as $file ) {
 }
 
 // Include base project files, because the autoloader will load them
-if ( WP_CLI_BASE_PATH !== WP_CLI_ROOT ) {
+if ( WP_CLI_BASE_PATH !== WP_CLI_ROOT && file_exists( WP_CLI_BASE_PATH . '/src' ) ) {
 	$finder = new Finder();
 	$finder
 		->files()
