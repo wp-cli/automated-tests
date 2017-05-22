@@ -9,7 +9,9 @@ env:
 matrix:
   include:
     - php: 5.6
-      env: WP_VERSION=latest
+      env: WP_VERSION=latest TEST_PACKAGE=wp-cli/wp-cli
+    - php: 5.6
+      env: WP_VERSION=latest TEST_PACKAGE=commands
 
 before_script:
   - ./ci/prepare.sh
