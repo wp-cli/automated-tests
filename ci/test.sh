@@ -14,7 +14,7 @@ set -ex
 
 FAILED_PACKAGES=""
 
-if [ "$TEST_PACKAGE" -eq "all" -o "$TEST_PACKAGE" -eq "wp-cli/wp-cli" ]; then
+if [ "$TEST_PACKAGE" == "all" -o "$TEST_PACKAGE" == "wp-cli/wp-cli" ]; then
 
 	# Run the functional tests for the framework.
 	echo "Testing wp-cli/wp-cli framework."
@@ -30,7 +30,7 @@ if [ "$TEST_PACKAGE" -eq "all" -o "$TEST_PACKAGE" -eq "wp-cli/wp-cli" ]; then
 
 fi
 
-if [ "$TEST_PACKAGE" -eq "all" -o "$TEST_PACKAGE" -eq "commands" ]; then
+if [ "$TEST_PACKAGE" == "all" -o "$TEST_PACKAGE" == "commands" ]; then
 
 	# Run the functional tests for the bundled commands.
 	echo "Testing command packages."
@@ -52,7 +52,7 @@ if [ "$TEST_PACKAGE" -eq "all" -o "$TEST_PACKAGE" -eq "commands" ]; then
 
 fi
 
-if [ "$TEST_PACKAGE" -ne "none" -o "$TEST_PACKAGE" -ne "all" -o "$TEST_PACKAGE" -ne "commands" ]; then
+if [ "$TEST_PACKAGE" != "none" -o "$TEST_PACKAGE" != "all" -o "$TEST_PACKAGE" != "commands" ]; then
 
 	# Run the functional tests for a specific package.
 	echo "Testing package $TEST_PACKAGE."
