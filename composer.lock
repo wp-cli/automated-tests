@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8fc7036e646679989ee680fd7764582",
+    "content-hash": "2001a62a3bb5473986ebcc69702b5fef",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -377,56 +377,6 @@
                 "templating"
             ],
             "time": "2016-07-31T06:18:27+00:00"
-        },
-        {
-            "name": "mustangostang/spyc",
-            "version": "0.6.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mustangostang/spyc.git",
-                "reference": "23c35ae854d835f2d7bcc3e3ad743d7e57a8c14d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mustangostang/spyc/zipball/23c35ae854d835f2d7bcc3e3ad743d7e57a8c14d",
-                "reference": "23c35ae854d835f2d7bcc3e3ad743d7e57a8c14d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.3.*@dev"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.5.x-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "Spyc.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "mustangostang",
-                    "email": "vlad.andersen@gmail.com"
-                }
-            ],
-            "description": "A simple YAML loader/dumper class for PHP",
-            "homepage": "https://github.com/mustangostang/spyc/",
-            "keywords": [
-                "spyc",
-                "yaml",
-                "yml"
-            ],
-            "time": "2017-02-24T16:06:33+00:00"
         },
         {
             "name": "nb/oxymel",
@@ -1368,6 +1318,840 @@
             "time": "2017-05-01T14:31:55+00:00"
         },
         {
+            "name": "wp-cli/autoload-splitter",
+            "version": "v0.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/autoload-splitter.git",
+                "reference": "446f73de57ab4e7bf38a4ba2779cd3630905185c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/autoload-splitter/zipball/446f73de57ab4e7bf38a4ba2779cd3630905185c",
+                "reference": "446f73de57ab4e7bf38a4ba2779cd3630905185c",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.1"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "WP_CLI\\AutoloadSplitter\\ComposerPlugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "WP_CLI\\AutoloadSplitter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alain Schlesser",
+                    "email": "alain.schlesser@gmail.com",
+                    "homepage": "https://www.alainschlesser.com"
+                }
+            ],
+            "description": "Composer plugin for splitting a generated autoloader into two distinct parts.",
+            "homepage": "https://wp-cli.org",
+            "time": "2017-05-03T06:21:26+00:00"
+        },
+        {
+            "name": "wp-cli/cache-command",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/cache-command.git",
+                "reference": "7097a4702f82e74ce70495635b2e460e56dcb6f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/cache-command/zipball/7097a4702f82e74ce70495635b2e460e56dcb6f8",
+                "reference": "7097a4702f82e74ce70495635b2e460e56dcb6f8",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5",
+                "wp-cli/wp-cli": "*"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "cache",
+                    "transient"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "cache-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Manage object and transient caches.",
+            "homepage": "https://github.com/wp-cli/cache-command",
+            "time": "2017-04-17T13:49:19+00:00"
+        },
+        {
+            "name": "wp-cli/checksum-command",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/checksum-command.git",
+                "reference": "4b58db1a9f388783374a4cbe1666140b6e32644b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/checksum-command/zipball/4b58db1a9f388783374a4cbe1666140b6e32644b",
+                "reference": "4b58db1a9f388783374a4cbe1666140b6e32644b",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5",
+                "wp-cli/wp-cli": "*"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "checksum core"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "checksum-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Verify WordPress core checksums.",
+            "homepage": "https://github.com/wp-cli/checksum-command",
+            "time": "2017-04-17T23:32:58+00:00"
+        },
+        {
+            "name": "wp-cli/config-command",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/config-command.git",
+                "reference": "cf7da88a8ca3371a46cfbee2c86d41b54b5c92b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/config-command/zipball/cf7da88a8ca3371a46cfbee2c86d41b54b5c92b5",
+                "reference": "cf7da88a8ca3371a46cfbee2c86d41b54b5c92b5",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5",
+                "wp-cli/wp-cli": "*"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "config",
+                    "config create"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "config-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Manage the wp-config.php file.",
+            "homepage": "https://github.com/wp-cli/config-command",
+            "time": "2017-05-04T19:26:45+00:00"
+        },
+        {
+            "name": "wp-cli/core-command",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/core-command.git",
+                "reference": "e2ec7ea88bb940a07344d44be3c1d6a4add0288b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/core-command/zipball/e2ec7ea88bb940a07344d44be3c1d6a4add0288b",
+                "reference": "e2ec7ea88bb940a07344d44be3c1d6a4add0288b",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5",
+                "wp-cli/wp-cli": "*"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "core check-update",
+                    "core download",
+                    "core install",
+                    "core is-installed",
+                    "core multisite-convert",
+                    "core multisite-install",
+                    "core update",
+                    "core update-db",
+                    "core version"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "core-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Download, install, update and manage a WordPress install.",
+            "homepage": "https://github.com/wp-cli/core-command",
+            "time": "2017-04-18T16:28:20+00:00"
+        },
+        {
+            "name": "wp-cli/cron-command",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/cron-command.git",
+                "reference": "2ce63dfe6b6e9f3312868f334f8857f4975665d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/cron-command/zipball/2ce63dfe6b6e9f3312868f334f8857f4975665d7",
+                "reference": "2ce63dfe6b6e9f3312868f334f8857f4975665d7",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "commands": [
+                    "cron test",
+                    "cron event delete",
+                    "cron event list",
+                    "cron event run",
+                    "cron event schedule",
+                    "cron schedule list"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "cron-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Manage WP-Cron events and schedules.",
+            "homepage": "https://github.com/wp-cli/cron-command",
+            "time": "2017-02-24T15:19:37+00:00"
+        },
+        {
+            "name": "wp-cli/db-command",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/db-command.git",
+                "reference": "3d79a66d23d13b61c2ca06ffa880addca07eb98f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/db-command/zipball/3d79a66d23d13b61c2ca06ffa880addca07eb98f",
+                "reference": "3d79a66d23d13b61c2ca06ffa880addca07eb98f",
+                "shasum": ""
+            },
+            "require": {
+                "wp-cli/wp-cli": "*"
+            },
+            "require-dev": {
+                "behat/behat": "~2.5"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "db create",
+                    "db drop",
+                    "db reset",
+                    "db check",
+                    "db optimize",
+                    "db repair",
+                    "db cli",
+                    "db query",
+                    "db export",
+                    "db import",
+                    "db tables"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "db-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Perform basic database operations using credentials stored in wp-config.php.",
+            "homepage": "https://github.com/wp-cli/db-command",
+            "time": "2017-05-01T11:20:18+00:00"
+        },
+        {
+            "name": "wp-cli/entity-command",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/entity-command.git",
+                "reference": "e1c6586c9f6970833dd7f80cf3fe7536af73529b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/entity-command/zipball/e1c6586c9f6970833dd7f80cf3fe7536af73529b",
+                "reference": "e1c6586c9f6970833dd7f80cf3fe7536af73529b",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5",
+                "wp-cli/wp-cli": "*"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "comment",
+                    "comment meta",
+                    "menu",
+                    "menu item",
+                    "menu location",
+                    "network meta",
+                    "post",
+                    "post meta",
+                    "post term",
+                    "post-type",
+                    "site",
+                    "taxonomy",
+                    "term",
+                    "term meta",
+                    "user",
+                    "user meta",
+                    "user term"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/",
+                    "WP_CLI\\": "src/WP_CLI"
+                },
+                "files": [
+                    "entity-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Manage WordPress core entities.",
+            "homepage": "https://github.com/wp-cli/entity-command",
+            "time": "2017-04-18T13:34:53+00:00"
+        },
+        {
+            "name": "wp-cli/eval-command",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/eval-command.git",
+                "reference": "0b18336faf0270e62754975584822362b739934a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/eval-command/zipball/0b18336faf0270e62754975584822362b739934a",
+                "reference": "0b18336faf0270e62754975584822362b739934a",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "commands": [
+                    "eval",
+                    "eval-file"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "eval-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Execute arbitrary PHP code.",
+            "homepage": "https://github.com/wp-cli/eval-command",
+            "time": "2017-03-20T13:48:13+00:00"
+        },
+        {
+            "name": "wp-cli/export-command",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/export-command.git",
+                "reference": "16ab805be36da659e5820c54d4fbbb3d5e4185e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/export-command/zipball/16ab805be36da659e5820c54d4fbbb3d5e4185e0",
+                "reference": "16ab805be36da659e5820c54d4fbbb3d5e4185e0",
+                "shasum": ""
+            },
+            "require": {
+                "nb/oxymel": "~0.1.0"
+            },
+            "require-dev": {
+                "behat/behat": "~2.5"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "commands": [
+                    "export"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "export-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Manage exports.",
+            "homepage": "https://github.com/wp-cli/export-command",
+            "time": "2017-03-09T02:26:53+00:00"
+        },
+        {
+            "name": "wp-cli/extension-command",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/extension-command.git",
+                "reference": "b57212c435e435d92925167b5012e05b6d890f1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/extension-command/zipball/b57212c435e435d92925167b5012e05b6d890f1a",
+                "reference": "b57212c435e435d92925167b5012e05b6d890f1a",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5",
+                "wp-cli/wp-cli": "*"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "plugin",
+                    "theme",
+                    "theme mod"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/",
+                    "WP_CLI\\": "src/WP_CLI"
+                },
+                "files": [
+                    "extension-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Manage WordPress plugins and themes.",
+            "homepage": "https://github.com/wp-cli/extension-command",
+            "time": "2017-05-11T20:37:03+00:00"
+        },
+        {
+            "name": "wp-cli/import-command",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/import-command.git",
+                "reference": "2be58f14961284ae701a2519b62da211ffedf83d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/import-command/zipball/2be58f14961284ae701a2519b62da211ffedf83d",
+                "reference": "2be58f14961284ae701a2519b62da211ffedf83d",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "commands": [
+                    "import"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "import-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Import content from a WXR file.",
+            "homepage": "https://github.com/wp-cli/import-command",
+            "time": "2017-02-28T13:24:43+00:00"
+        },
+        {
+            "name": "wp-cli/language-command",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/language-command.git",
+                "reference": "09298a90f9866252b2ccacf5c41c99075ea423ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/language-command/zipball/09298a90f9866252b2ccacf5c41c99075ea423ef",
+                "reference": "09298a90f9866252b2ccacf5c41c99075ea423ef",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5",
+                "wp-cli/wp-cli": "*"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "language core activate",
+                    "language core install",
+                    "language core list",
+                    "language core uninstall",
+                    "language core update"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "language-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Manage language packs.",
+            "homepage": "https://github.com/wp-cli/language-command",
+            "time": "2017-05-01T13:36:54+00:00"
+        },
+        {
+            "name": "wp-cli/media-command",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/media-command.git",
+                "reference": "e175cdd673889d9e21c5214f18c6175a9d326a48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/media-command/zipball/e175cdd673889d9e21c5214f18c6175a9d326a48",
+                "reference": "e175cdd673889d9e21c5214f18c6175a9d326a48",
+                "shasum": ""
+            },
+            "require": {
+                "wp-cli/wp-cli": "*"
+            },
+            "require-dev": {
+                "behat/behat": "~2.5"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "media import",
+                    "media regenerate"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "media-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Import and regenerate attachments.",
+            "homepage": "https://github.com/wp-cli/media-command",
+            "time": "2017-04-14T14:09:06+00:00"
+        },
+        {
+            "name": "wp-cli/mustangostang-spyc",
+            "version": "0.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/spyc.git",
+                "reference": "6aa0b4da69ce9e9a2c8402dab8d43cf32c581cc7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/spyc/zipball/6aa0b4da69ce9e9a2c8402dab8d43cf32c581cc7",
+                "reference": "6aa0b4da69ce9e9a2c8402dab8d43cf32c581cc7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.3.*@dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mustangostang\\": "src/"
+                },
+                "files": [
+                    "includes/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "mustangostang",
+                    "email": "vlad.andersen@gmail.com"
+                }
+            ],
+            "description": "A simple YAML loader/dumper class for PHP (WP-CLI fork)",
+            "homepage": "https://github.com/mustangostang/spyc/",
+            "time": "2017-04-25T11:26:20+00:00"
+        },
+        {
+            "name": "wp-cli/package-command",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/package-command.git",
+                "reference": "692a258facc0fa5ca55a11fdebd37d7264ed0bfa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/package-command/zipball/692a258facc0fa5ca55a11fdebd37d7264ed0bfa",
+                "reference": "692a258facc0fa5ca55a11fdebd37d7264ed0bfa",
+                "shasum": ""
+            },
+            "require": {
+                "composer/composer": "^1.2.0"
+            },
+            "require-dev": {
+                "behat/behat": "~2.5"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "commands": [
+                    "package browse",
+                    "package install",
+                    "package list",
+                    "package update",
+                    "package uninstall"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "package-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Manage WP-CLI packages.",
+            "homepage": "https://github.com/wp-cli/package-command",
+            "time": "2017-03-10T21:14:44+00:00"
+        },
+        {
             "name": "wp-cli/php-cli-tools",
             "version": "v0.11.2",
             "source": {
@@ -1418,43 +2202,488 @@
             "time": "2017-02-15T12:17:55+00:00"
         },
         {
-            "name": "wp-cli/wp-cli",
-            "version": "v1.1.0",
+            "name": "wp-cli/rewrite-command",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/wp-cli/wp-cli.git",
-                "reference": "5a28b49f7e725c74f747620fb5b1d6060953abf1"
+                "url": "https://github.com/wp-cli/rewrite-command.git",
+                "reference": "9b09d552c1c77cf406edecda20d93880d2bf1579"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/5a28b49f7e725c74f747620fb5b1d6060953abf1",
-                "reference": "5a28b49f7e725c74f747620fb5b1d6060953abf1",
+                "url": "https://api.github.com/repos/wp-cli/rewrite-command/zipball/9b09d552c1c77cf406edecda20d93880d2bf1579",
+                "reference": "9b09d552c1c77cf406edecda20d93880d2bf1579",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5",
+                "wp-cli/wp-cli": "*"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "rewrite flush",
+                    "rewrite list",
+                    "rewrite structure"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "rewrite-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Manage rewrite rules.",
+            "homepage": "https://github.com/wp-cli/rewrite-command",
+            "time": "2017-04-12T12:56:12+00:00"
+        },
+        {
+            "name": "wp-cli/role-command",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/role-command.git",
+                "reference": "08ef611af2942673f166af0462eb10c2e084ee86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/role-command/zipball/08ef611af2942673f166af0462eb10c2e084ee86",
+                "reference": "08ef611af2942673f166af0462eb10c2e084ee86",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5",
+                "wp-cli/wp-cli": "*"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "role create",
+                    "role delete",
+                    "role exists",
+                    "role list",
+                    "role reset",
+                    "cap add",
+                    "cap list",
+                    "cap remove"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "role-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Manage user roles and capabilities.",
+            "homepage": "https://github.com/wp-cli/role-command",
+            "time": "2017-04-17T13:14:01+00:00"
+        },
+        {
+            "name": "wp-cli/scaffold-command",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/scaffold-command.git",
+                "reference": "bc3559120fb86183df99a3b534fe201c6b199e1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/scaffold-command/zipball/bc3559120fb86183df99a3b534fe201c6b199e1a",
+                "reference": "bc3559120fb86183df99a3b534fe201c6b199e1a",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5",
+                "wp-cli/wp-cli": "*"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "scaffold",
+                    "scaffold _s",
+                    "scaffold child-theme",
+                    "scaffold plugin",
+                    "scaffold plugin-tests",
+                    "scaffold post-type",
+                    "scaffold taxonomy",
+                    "scaffold theme-tests"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "scaffold-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Generate code for post types, taxonomies, plugins, child themes, etc.",
+            "homepage": "https://github.com/wp-cli/scaffold-command",
+            "time": "2017-04-30T14:34:58+00:00"
+        },
+        {
+            "name": "wp-cli/search-replace-command",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/search-replace-command.git",
+                "reference": "9d354ae7f0be331b95d635177c082df6a2ed04fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/search-replace-command/zipball/9d354ae7f0be331b95d635177c082df6a2ed04fe",
+                "reference": "9d354ae7f0be331b95d635177c082df6a2ed04fe",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "commands": [
+                    "search-replace"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/",
+                    "WP_CLI\\": "src/WP_CLI"
+                },
+                "files": [
+                    "search-replace-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Search/replace strings in the database.",
+            "homepage": "https://github.com/wp-cli/search-replace-command",
+            "time": "2017-03-13T16:57:54+00:00"
+        },
+        {
+            "name": "wp-cli/server-command",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/server-command.git",
+                "reference": "d180ea7cfe6b2061696fe02121ddc7d090f45f5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/server-command/zipball/d180ea7cfe6b2061696fe02121ddc7d090f45f5a",
+                "reference": "d180ea7cfe6b2061696fe02121ddc7d090f45f5a",
+                "shasum": ""
+            },
+            "require": {
+                "wp-cli/wp-cli": "*"
+            },
+            "require-dev": {
+                "behat/behat": "~2.5"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "server"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "server-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Launch PHP's built-in web server for this specific WordPress installation.",
+            "homepage": "https://github.com/wp-cli/server-command",
+            "time": "2017-04-28T19:00:19+00:00"
+        },
+        {
+            "name": "wp-cli/shell-command",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/shell-command.git",
+                "reference": "d943f148e59bfbb601540f1710889be3dce908bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/shell-command/zipball/d943f148e59bfbb601540f1710889be3dce908bc",
+                "reference": "d943f148e59bfbb601540f1710889be3dce908bc",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "commands": [
+                    "shell"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/",
+                    "WP_CLI\\": "src/WP_CLI"
+                },
+                "files": [
+                    "shell-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Interactive PHP console.",
+            "homepage": "https://github.com/wp-cli/shell-command",
+            "time": "2017-03-17T12:25:40+00:00"
+        },
+        {
+            "name": "wp-cli/super-admin-command",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/super-admin-command.git",
+                "reference": "1ccf7d053c0271ddecd24c1fc591ac65d18b7e67"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/super-admin-command/zipball/1ccf7d053c0271ddecd24c1fc591ac65d18b7e67",
+                "reference": "1ccf7d053c0271ddecd24c1fc591ac65d18b7e67",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5",
+                "wp-cli/wp-cli": "*"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "super-admin add",
+                    "super-admin list",
+                    "super-admin remove"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "super-admin-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Manage super admins on WordPress multisite.",
+            "homepage": "https://github.com/wp-cli/super-admin-command",
+            "time": "2017-04-12T13:27:06+00:00"
+        },
+        {
+            "name": "wp-cli/widget-command",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/widget-command.git",
+                "reference": "84d6e98cb9f4e85ee142a3b50fafd2b4be275d81"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/widget-command/zipball/84d6e98cb9f4e85ee142a3b50fafd2b4be275d81",
+                "reference": "84d6e98cb9f4e85ee142a3b50fafd2b4be275d81",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": "~2.5",
+                "wp-cli/wp-cli": "*"
+            },
+            "type": "wp-cli-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "commands": [
+                    "widget add",
+                    "widget deactivate",
+                    "widget delete",
+                    "widget list",
+                    "widget move",
+                    "widget reset",
+                    "widget update",
+                    "sidebar list"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                },
+                "files": [
+                    "widget-command.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bachhuber",
+                    "email": "daniel@runcommand.io",
+                    "homepage": "https://runcommand.io"
+                }
+            ],
+            "description": "Manage widgets and sidebars.",
+            "homepage": "https://github.com/wp-cli/widget-command",
+            "time": "2017-04-17T12:41:09+00:00"
+        },
+        {
+            "name": "wp-cli/wp-cli",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/wp-cli.git",
+                "reference": "7e9a1c262b22942400a42976218841fe94787f65"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/7e9a1c262b22942400a42976218841fe94787f65",
+                "reference": "7e9a1c262b22942400a42976218841fe94787f65",
                 "shasum": ""
             },
             "require": {
                 "composer/composer": "^1.2.0",
                 "composer/semver": "~1.0",
                 "mustache/mustache": "~2.4",
-                "mustangostang/spyc": "~0.5",
-                "nb/oxymel": "~0.1.0",
                 "php": ">=5.3.29",
                 "ramsey/array_column": "~1.1",
                 "rmccue/requests": "~1.6",
-                "symfony/config": "~2.7",
-                "symfony/console": "~2.7",
-                "symfony/debug": "~2.7",
-                "symfony/dependency-injection": "~2.7",
-                "symfony/event-dispatcher": "~2.7",
-                "symfony/filesystem": "~2.7",
-                "symfony/finder": "~2.7",
-                "symfony/process": "~2.1",
-                "symfony/translation": "~2.7",
-                "symfony/yaml": "~2.7",
-                "wp-cli/php-cli-tools": "~0.11.1"
+                "symfony/config": "^2.7|^3.0",
+                "symfony/console": "^2.7|^3.0",
+                "symfony/debug": "^2.7|^3.0",
+                "symfony/dependency-injection": "^2.7|^3.0",
+                "symfony/event-dispatcher": "^2.7|^3.0",
+                "symfony/filesystem": "^2.7|^3.0",
+                "symfony/finder": "^2.7|^3.0",
+                "symfony/process": "^2.1|^3.0",
+                "symfony/translation": "^2.7|^3.0",
+                "symfony/yaml": "^2.7|^3.0",
+                "wp-cli/autoload-splitter": "^0.1",
+                "wp-cli/cache-command": "^1.0",
+                "wp-cli/checksum-command": "^1.0",
+                "wp-cli/config-command": "^1.0",
+                "wp-cli/core-command": "^1.0",
+                "wp-cli/cron-command": "^1.0",
+                "wp-cli/db-command": "^1.0",
+                "wp-cli/entity-command": "^1.0",
+                "wp-cli/eval-command": "^1.0",
+                "wp-cli/export-command": "^1.0",
+                "wp-cli/extension-command": "^1.0",
+                "wp-cli/import-command": "^1.0",
+                "wp-cli/language-command": "^1.0",
+                "wp-cli/media-command": "^1.0",
+                "wp-cli/mustangostang-spyc": "^0.6.3",
+                "wp-cli/package-command": "^1.0",
+                "wp-cli/php-cli-tools": "~0.11.2",
+                "wp-cli/rewrite-command": "^1.0",
+                "wp-cli/role-command": "^1.0",
+                "wp-cli/scaffold-command": "^1.0",
+                "wp-cli/search-replace-command": "^1.0",
+                "wp-cli/server-command": "^1.0",
+                "wp-cli/shell-command": "^1.0",
+                "wp-cli/super-admin-command": "^1.0",
+                "wp-cli/widget-command": "^1.0"
             },
             "require-dev": {
                 "behat/behat": "2.5.*",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "3.7.*",
+                "pyrech/composer-changelogs": "dev-php53 as 1.5.1",
+                "roave/security-advisories": "dev-master"
             },
             "suggest": {
                 "psy/psysh": "Enhanced `wp shell` functionality"
@@ -1464,13 +2693,21 @@
                 "bin/wp"
             ],
             "type": "library",
+            "extra": {
+                "autoload-splitter": {
+                    "splitter-logic": "WP_CLI\\AutoloadSplitter",
+                    "splitter-location": "php/WP_CLI/AutoloadSplitter.php",
+                    "split-target-prefix-true": "autoload_commands",
+                    "split-target-prefix-false": "autoload_framework"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "WP_CLI": "php"
                 },
-                "classmap": [
-                    "php/export"
-                ]
+                "psr-4": {
+                    "": "php/commands/src"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1482,7 +2719,7 @@
                 "cli",
                 "wordpress"
             ],
-            "time": "2017-02-01T14:20:12+00:00"
+            "time": "2017-05-25 13:40:17"
         }
     ],
     "packages-dev": [
@@ -2198,6 +3435,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "wp-cli/wp-cli": 20,
         "pyrech/composer-changelogs": 20,
         "roave/security-advisories": 20
     },
