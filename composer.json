@@ -18,17 +18,13 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/wp-cli/composer-changelogs"
-		},
-		{
-			"type": "path",
-			"url": "/Users/alain/dev/wp-cli/phar-build-wp-cli"
 		}
 	],
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"require": {
 		"php": ">=5.3.29",
-		"wp-cli/wp-cli": "dev-master#9fda2a75c459b120d887b943eb8b5d97acebf98e as 1.2.0-alpha"
+		"wp-cli/wp-cli": "dev-master"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "3.7.*",
