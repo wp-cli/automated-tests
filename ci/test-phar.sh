@@ -44,18 +44,24 @@ for RELEASE in $RELEASES; do
 	PHAR_URL="https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli${SUFFIX}.phar"
 	MD5_URL="${PHAR_URL}.md5"
 
+	# Download binary and verify MD5 checksum.
 	BIN_FOLDER="$(mktemp -d)"
 	wget -O "${BIN_FOLDER}/wp-cli.phar.md5" "$MD5_URL"
 	TARGET_MD5=$(cat "${BIN_FOLDER}/wp-cli.phar.md5")
 	wget -O "${BIN_FOLDER}/wp-cli.phar" "$PHAR_URL"
-	DOWNLOAD_MD5=$(md5sum "${BIN_FOLDER}/wp-cli.phar" | cut -d ' ' -f 1)
+	if hash md5sum 2>/dev/null; then
+		DOWNLOAD_MD5=$(md5sum "${BIN_FOLDER}/wp-cli.phar" | cut -d ' ' -f 1)
+	else
+		DOWNLOAD_MD5=$(md5 -q "${BIN_FOLDER}/wp-cli.phar")
+	fi
 	if [ ! "$TARGET_MD5" == "$DOWNLOAD_MD5" ]; then
 		echo MD5 mismatch, the download for the ${RELEASE} distribution seems to be corrupt.
 		exit 1
 	fi
 
-	export WP_CLI_BIN_DIR="${BIN_FOLDER}/wp-cli.phar"
-	alias wp="${BIN_FOLDER}/wp-cli.phar"
+	export WP_CLI_BIN_DIR="${BIN_FOLDER}"
+	mv "${WP_CLI_BIN_DIR}/wp-cli.phar" "${WP_CLI_BIN_DIR}/wp"
+	chmod +x "${BIN_FOLDER}/wp"
 
 	for REPO in $REPOS; do
 
