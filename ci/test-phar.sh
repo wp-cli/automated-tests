@@ -68,6 +68,11 @@ for RELEASE in $RELEASES; do
 		echo "Testing ${RELEASE}:${REPO}..."
 		BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER=vendor/$REPO/features php ci/behat-tags.php)
 
+		BEHAT_PROFILE=""
+		if [ "$REPO" != "wp-cli/wp-cli" ]; then
+			BEHAT_PROFILE=" -p=$REPO"
+		fi
+
 		set +e
 		vendor/bin/behat --format progress $BEHAT_TAGS --strict $BEHAT_PROFILE
 		if [ $? -ne 0 ]; then
