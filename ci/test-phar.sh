@@ -48,7 +48,7 @@ for RELEASE in $RELEASES; do
 	wget -O "${BIN_FOLDER}/wp-cli.phar.md5" "$MD5_URL"
 	TARGET_MD5=$(cat "${BIN_FOLDER}/wp-cli.phar.md5")
 	wget -O "${BIN_FOLDER}/wp-cli.phar" "$PHAR_URL"
-	DOWNLOAD_MD5="$(md5 -q "${BIN_FOLDER}/wp-cli.phar")"
+	DOWNLOAD_MD5="$(md5sum "${BIN_FOLDER}/wp-cli.phar")"
 	if [ ! "$TARGET_MD5" == "$DOWNLOAD_MD5" ]; then
 		echo MD5 mismatch, the download for the ${RELEASE} distribution seems to be corrupt.
 		exit 1
