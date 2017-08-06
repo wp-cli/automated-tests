@@ -24,6 +24,8 @@
 # - "stable": Use the latest stable phar release.
 # - "all": Use both the latest stable release phar as well as the nightly phar.
 
+set -e
+
 BUILD_DIR=$(pwd)
 
 if [ ${TRAVIS_BUILD_DIR+x} ]; then
@@ -31,11 +33,11 @@ if [ ${TRAVIS_BUILD_DIR+x} ]; then
 fi
 
 if [ ${TEST_PACKAGE+x} ]; then
-	"Running source package tests..."
+	echo "Running source package tests..."
 	$BUILD_DIR/ci/test-package.sh
 fi
 
 if [ ${TEST_PHAR+x} ]; then
-	"Running Phar distribution tests..."
+	echo "Running Phar distribution tests..."
 	$BUILD_DIR/ci/test-phar.sh
 fi
