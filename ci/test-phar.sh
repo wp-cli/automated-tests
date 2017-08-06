@@ -71,7 +71,7 @@ for RELEASE in $RELEASES; do
 done
 
 if [ -n "$FAILED_PACKAGES" ]; then
-	echo "Phar distributions and packages with failed tests: $FAILED_PACKAGES"
+	echo "Phar distributions and packages with failed tests:$FAILED_PACKAGES"
 	exit 1
 fi
 
