@@ -27,7 +27,7 @@
 BUILD_DIR=$(pwd)
 
 if [ ${TRAVIS_BUILD_DIR+x} ]; then
-	$BUILD_DIR="$TRAVIS_BUILD_DIR"
+	BUILD_DIR="$TRAVIS_BUILD_DIR"
 fi
 
 if [ ${TEST_PACKAGE+x} ]; then
