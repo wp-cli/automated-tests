@@ -54,9 +54,11 @@ for RELEASE in $RELEASES; do
 		exit 1
 	fi
 
-	WP_CLI_BIN_DIR="${BIN_FOLDER}/wp-cli.phar"
+	export WP_CLI_BIN_DIR="${BIN_FOLDER}/wp-cli.phar"
+	alias wp="${BIN_FOLDER}/wp-cli.phar"
 
-		for REPO in $REPOS; do
+	for REPO in $REPOS; do
+
 		BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER=vendor/$REPO/features php ci/behat-tags.php)
 
 		set +e
