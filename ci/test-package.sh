@@ -55,7 +55,7 @@ for REPO in $REPOS; do
 done
 
 if [ -n "$FAILED_PACKAGES" ]; then
-	echo "Packages with failed tests: $FAILED_PACKAGES"
+	echo "Packages with failed tests:$FAILED_PACKAGES"
 	exit 1
 fi
 
