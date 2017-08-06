@@ -10,7 +10,7 @@
 # - "stable": Use the latest stable phar release.
 # - "all": Use both the latest stable release phar as well as the nightly phar.
 
-set -ex
+set -e
 
 FAILED_PACKAGES=""
 
@@ -65,6 +65,7 @@ for RELEASE in $RELEASES; do
 
 	for REPO in $REPOS; do
 
+		echo "Testing ${RELEASE}:${REPO}..."
 		BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER=vendor/$REPO/features php ci/behat-tags.php)
 
 		set +e

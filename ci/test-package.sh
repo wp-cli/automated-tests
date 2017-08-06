@@ -10,7 +10,7 @@
 # - "commands": Only the command packages are tested.
 # - <package name>: Only the package named <package name> is tested.
 
-set -ex
+set -e
 
 FAILED_PACKAGES=""
 
