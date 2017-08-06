@@ -26,10 +26,10 @@
 
 if [ ${TEST_PACKAGE+x} ]; then
 	"Running source package tests..."
-	ci/test-package.sh
+	$TRAVIS_BUILD_DIR/ci/test-package.sh
 fi
 
 if [ ${TEST_PHAR+x} ]; then
 	"Running Phar distribution tests..."
-	ci/test-phar.sh
+	$TRAVIS_BUILD_DIR/ci/test-phar.sh
 fi
