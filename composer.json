@@ -1,12 +1,12 @@
 {
-	"name": "wp-cli/phar-build",
-	"description": "Phar build process for WP-CLI.",
+	"name": "wp-cli/automated-tests",
+	"description": "Automated tests across WP-CLI and all bundled packages.",
 	"keywords": [ "cli", "wordpress" ],
 	"homepage": "http://wp-cli.org",
 	"license": "MIT",
 	"support": {
-		"issues": "https://github.com/wp-cli/phar-build/issues",
-		"source": "https://github.com/wp-cli/phar-build",
+		"issues": "https://github.com/wp-cli/automated-tests/issues",
+		"source": "https://github.com/wp-cli/automated-tests",
 		"docs": "https://make.wordpress.org/cli/handbook/"
 	},
 	"config": {
@@ -14,12 +14,6 @@
 			"php": "5.3.29"
 		}
 	},
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/wp-cli/composer-changelogs"
-		}
-	],
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"require": {
@@ -29,7 +23,6 @@
 	"require-dev": {
 		"phpunit/phpunit": "3.7.*",
 		"behat/behat": "2.5.*",
-		"pyrech/composer-changelogs": "dev-php53 as 1.5.1",
 		"roave/security-advisories": "dev-master"
 	}
 }
