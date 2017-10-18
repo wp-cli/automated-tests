@@ -26,6 +26,8 @@
 
 set -e
 
+exit 1
+
 BUILD_DIR=$(pwd)
 
 if [ ${TRAVIS_BUILD_DIR+x} ]; then
