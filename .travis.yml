@@ -27,7 +27,6 @@ after_success: ./ci/deploy.sh
 
 cache:
   directories:
-  - vendor
   - $HOME/.composer/cache
 
 branches:
