@@ -46,7 +46,7 @@ for REPO in $REPOS; do
 	fi
 
 	set +e
-	vendor/bin/behat --format progress $BEHAT_TAGS --strict $BEHAT_PROFILE
+	echo "__|vendor/bin/behat --format progress "$BEHAT_TAGS" --strict $BEHAT_PROFILE|__"
 	if [ $? -ne 0 ]; then
 		FAILED_PACKAGES="$FAILED_PACKAGES $REPO"
 	fi
