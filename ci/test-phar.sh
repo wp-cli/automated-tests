@@ -70,7 +70,7 @@ for RELEASE in $RELEASES; do
 
 		BEHAT_PROFILE=""
 		if [ "$REPO" != "wp-cli/wp-cli" ]; then
-			BEHAT_PROFILE=" -p=$REPO"
+			BEHAT_PROFILE=" --profile $REPO"
 		fi
 
 		set +e
