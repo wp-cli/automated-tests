@@ -41,6 +41,12 @@ wp-cli/db-command:
     features: 'vendor/wp-cli/db-command/features'
     bootstrap: 'vendor/wp-cli/wp-cli/features/bootstrap'
 
+# wp embed
+wp-cli/embed-command:
+  paths:
+    features: 'vendor/wp-cli/embed-command/features'
+    bootstrap: 'vendor/wp-cli/wp-cli/features/bootstrap'
+
 # wp comment | wp menu | wp network | wp option | wp post | wp site | wp taxonomy | wp term | wp user
 wp-cli/entity-command:
   paths:
