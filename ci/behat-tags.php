@@ -43,7 +43,7 @@ if ( $wp_version && ! in_array( $wp_version, array( 'latest', 'nightly', 'trunk'
 	);
 } else {
 	// But make sure @less-than-wp tags always exist for those special cases. (Note: @less-than-wp-latest etc won't work and shouldn't be used).
-	$wp_version_reqs = array_merge( $wp_version_reqs, version_tags( 'less-than-wp', '9999', '>=' ) );
+	$wp_version_reqs = array_merge( $wp_version_reqs, version_tags( 'less-than-wp', '9999', '>=', $features_folder ) );
 }
 
 $skip_tags = array_merge(
