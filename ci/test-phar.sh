@@ -15,8 +15,29 @@ set -e
 FAILED_PACKAGES=""
 
 RELEASES=""
-REPOS="wp-cli/wp-cli
+REPOS=""
+
+if [ -z "$TEST_PACKAGE" ]; then
+	TEST_PACKAGE="all"
+fi
+
+if [ "$TEST_PACKAGE" == "none" ]; then
+	echo "Skipping feature tests completely."
+	exit 0
+fi
+
+if [ "$TEST_PACKAGE" == "all" ]; then
+	REPOS="wp-cli/wp-cli
 $(cat vendor/wp-cli/wp-cli/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
+fi
+
+if [ "$TEST_PACKAGE" == "commands" ]; then
+	REPOS="$(cat vendor/wp-cli/wp-cli/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
+fi
+
+if [ "$TEST_PACKAGE" != "all" -a "$TEST_PACKAGE" != "commands" ]; then
+	REPOS="$TEST_PACKAGE"
+fi
 
 if [ -z "$TEST_PHAR" -o "$TEST_PHAR" == "none" ]; then
 	echo "Skipping feature tests completely."
