@@ -30,3 +30,7 @@ The following options can be set:
 * **`nightly`** - Use the nightly phar.
 * **`stable `** - Use the latest stable phar release.
 * **`all`** - Use both the latest stable release phar as well as the nightly phar.
+
+### Automated Builds
+
+This repository is being rebuilt through a Travis CI cron job every 24 hours to post test results in Emails and Slack.
