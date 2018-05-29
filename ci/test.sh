@@ -32,6 +32,10 @@ if [ ${TRAVIS_BUILD_DIR+x} ]; then
 	BUILD_DIR="$TRAVIS_BUILD_DIR"
 fi
 
+if [ $WP_VERSION = "latest" ]; then
+	export WP_VERSION=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -r ".offers[0].current")
+fi
+
 if [ ${TEST_PACKAGE+x} ]; then
 	echo "Running source package tests..."
 	$BUILD_DIR/ci/test-package.sh
