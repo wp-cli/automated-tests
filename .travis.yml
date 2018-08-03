@@ -27,8 +27,6 @@ before_script:
 
 script: ./ci/test.sh
 
-after_success: ./ci/deploy.sh
-
 cache:
   directories:
   - $HOME/.composer/cache
