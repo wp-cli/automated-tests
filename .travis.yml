@@ -9,13 +9,17 @@ env:
 matrix:
   include:
     - php: 7.0
-      env: WP_VERSION=latest TEST_PACKAGE=wp-cli/wp-cli
+      env: WP_VERSION=latest TEST_PACKAGE="wp-cli/wp-cli-bundle wp-cli/wp-cli"
     - php: 7.0
       env: WP_VERSION=latest TEST_PACKAGE=commands
     - php: 7.0
-      env: WP_VERSION=latest TEST_PACKAGE=wp-cli/wp-cli TEST_PHAR=nightly
+      env: WP_VERSION=latest TEST_PACKAGE="wp-cli/wp-cli-bundle wp-cli/wp-cli" TEST_PHAR=nightly
     - php: 7.0
       env: WP_VERSION=latest TEST_PACKAGE=commands TEST_PHAR=nightly
+    - php: 7.0
+      env: WP_VERSION=latest TEST_PACKAGE="wp-cli/wp-cli-bundle wp-cli/wp-cli" TEST_PHAR=v2-nightly
+    - php: 7.0
+      env: WP_VERSION=latest TEST_PACKAGE=commands TEST_PHAR=v2-nightly
 
 before_script:
   - ./ci/prepare.sh
