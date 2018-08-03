@@ -27,7 +27,8 @@ if [ "$TEST_PACKAGE" == "none" ]; then
 fi
 
 if [ "$TEST_PACKAGE" == "all" ]; then
-	REPOS="wp-cli/wp-cli
+	REPOS="wp-cli/wp-cli-bundle
+wp-cli/wp-cli
 $(cat vendor/wp-cli/wp-cli/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
 fi
 
@@ -60,6 +61,9 @@ for RELEASE in $RELEASES; do
 	SUFFIX=""
 	if [ "$RELEASE" == "nightly" ]; then
 		SUFFIX="-nightly"
+	fi
+	if [ "$RELEASE" == "v2-nightly" ]; then
+		SUFFIX="-v2-nightly"
 	fi
 
 	PHAR_URL="https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli${SUFFIX}.phar"

@@ -22,7 +22,8 @@ if [ -z "$TEST_PACKAGE" -o "$TEST_PACKAGE" == "none" ]; then
 fi
 
 if [ "$TEST_PACKAGE" == "all" ]; then
-	REPOS="wp-cli/wp-cli
+	REPOS="wp-cli/wp-cli-bundle
+wp-cli-/wp-cli
 $(cat vendor/wp-cli/wp-cli/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
 fi
 
