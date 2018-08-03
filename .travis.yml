@@ -23,6 +23,7 @@ matrix:
 
 before_script:
   - ./ci/prepare.sh
+  - composer prepare
 
 script: ./ci/test.sh
 

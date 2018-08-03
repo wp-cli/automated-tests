@@ -39,7 +39,7 @@ for REPO in $REPOS; do
 
 	echo "Testing package $REPO..."
 
-	BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER=vendor/${REPO}/features php ci/behat-tags.php)
+	BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER=vendor/${REPO}/features php vendor/wp-cli/wp-cli-tests/utils/behat-tags.php)
 	echo "Behat Tags: $BEHAT_TAGS"
 
 	BEHAT_PROFILE=""
