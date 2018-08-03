@@ -29,7 +29,7 @@ then
 	echo $CLI_VERSION > VERSION
 else
 	mkdir -p $WP_CLI_BIN_DIR
-	php -dphar.readonly=0 vendor/wp-cli/wp-cli-bundle/make-phar.php wp-cli.phar --quiet --version=$CLI_VERSION
+	php -dphar.readonly=0 vendor/wp-cli/wp-cli-bundle/utils/make-phar.php wp-cli.phar --quiet --version=$CLI_VERSION
 	mv wp-cli.phar $WP_CLI_BIN_DIR/wp
 	chmod +x $WP_CLI_BIN_DIR/wp
 fi
