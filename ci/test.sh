@@ -36,12 +36,13 @@ if [ $WP_VERSION = "latest" ]; then
 	export WP_VERSION=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -r ".offers[0].current")
 fi
 
-if [ ${TEST_PACKAGE+x} ]; then
-	echo "Running source package tests..."
-	$BUILD_DIR/ci/test-package.sh
-fi
-
 if [ ${TEST_PHAR+x} ]; then
 	echo "Running Phar distribution tests..."
 	$BUILD_DIR/ci/test-phar.sh
+	exit 0
+fi
+
+if [ ${TEST_PACKAGE+x} ]; then
+	echo "Running source package tests..."
+	$BUILD_DIR/ci/test-package.sh
 fi

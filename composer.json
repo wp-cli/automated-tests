@@ -11,18 +11,29 @@
 	},
 	"config": {
 		"platform": {
-			"php": "5.3.29"
+			"php": "5.4"
 		}
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"require": {
-		"php": ">=5.3.29",
-		"wp-cli/wp-cli": "dev-master"
+		"php": "^5.4 || ^7",
+		"wp-cli/wp-cli-bundle": "dev-master"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "3.7.*",
-		"behat/behat": "2.5.*",
-		"roave/security-advisories": "dev-master"
-	}
+		"wp-cli/wp-cli-tests": "dev-master"
+	},
+    "scripts": {
+        "lint": "run-linter-tests",
+        "phpcs": "run-phpcs-tests",
+        "phpunit": "run-php-unit-tests",
+        "behat": "run-behat-tests",
+        "prepare-tests": "install-package-tests",
+        "test": [
+            "@lint",
+            "@phpcs",
+            "@phpunit",
+            "@behat"
+        ]
+    }
 }

@@ -24,11 +24,11 @@ fi
 if [ "$TEST_PACKAGE" == "all" ]; then
 	REPOS="wp-cli/wp-cli-bundle
 wp-cli-/wp-cli
-$(cat vendor/wp-cli/wp-cli/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
+$(cat vendor/wp-cli/wp-cli-bundle/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
 fi
 
 if [ "$TEST_PACKAGE" == "commands" ]; then
-	REPOS="$(cat vendor/wp-cli/wp-cli/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
+	REPOS="$(cat vendor/wp-cli/wp-cli-bundle/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
 fi
 
 if [ "$TEST_PACKAGE" != "all" -a "$TEST_PACKAGE" != "commands" ]; then
@@ -39,7 +39,7 @@ for REPO in $REPOS; do
 
 	echo "Testing package $REPO..."
 
-	BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER=vendor/${REPO}/features php ci/behat-tags.php)
+	BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER=vendor/${REPO}/features php vendor/wp-cli/wp-cli-tests/utils/behat-tags.php)
 	echo "Behat Tags: $BEHAT_TAGS"
 
 	BEHAT_PROFILE=""
