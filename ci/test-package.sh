@@ -24,11 +24,11 @@ fi
 if [ "$TEST_PACKAGE" == "all" ]; then
 	REPOS="wp-cli/wp-cli-bundle
 wp-cli-/wp-cli
-$(cat vendor/wp-cli/wp-cli/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
+$(cat vendor/wp-cli/wp-cli-bundle/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
 fi
 
 if [ "$TEST_PACKAGE" == "commands" ]; then
-	REPOS="$(cat vendor/wp-cli/wp-cli/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
+	REPOS="$(cat vendor/wp-cli/wp-cli-bundle/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
 fi
 
 if [ "$TEST_PACKAGE" != "all" -a "$TEST_PACKAGE" != "commands" ]; then
