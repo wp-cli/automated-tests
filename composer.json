@@ -1,28 +1,43 @@
 {
-	"name": "wp-cli/automated-tests",
-	"description": "Automated tests across WP-CLI and all bundled packages.",
-	"keywords": [ "cli", "wordpress" ],
-	"homepage": "http://wp-cli.org",
-	"license": "MIT",
-	"support": {
-		"issues": "https://github.com/wp-cli/automated-tests/issues",
-		"source": "https://github.com/wp-cli/automated-tests",
-		"docs": "https://make.wordpress.org/cli/handbook/"
-	},
-	"config": {
-		"platform": {
-			"php": "5.3.29"
-		}
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
-	"require": {
-		"php": ">=5.3.29",
-		"wp-cli/wp-cli": "dev-master"
-	},
-	"require-dev": {
-		"phpunit/phpunit": "3.7.*",
-		"behat/behat": "2.5.*",
-		"roave/security-advisories": "dev-master"
-	}
+    "name": "wp-cli/automated-tests",
+    "description": "Automated tests across WP-CLI and all bundled packages.",
+    "keywords": [
+        "cli",
+        "wordpress"
+    ],
+    "homepage": "http://wp-cli.org",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.4",
+        "wp-cli/wp-cli-bundle": "dev-master",
+        "wp-cli/wp-cli-tests": "^2.0.4"
+    },
+    "config": {
+        "platform": {
+            "php": "5.4"
+        },
+        "process-timeout": 7200,
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "bin": [
+        "bin/bootstrap-test-suite",
+        "bin/run-test-suite",
+        "bin/test-phar",
+        "bin/test-source"
+    ],
+    "scripts": {
+        "behat": "run-behat-tests",
+        "lint": "run-linter-tests",
+        "phpcs": "run-phpcs-tests",
+        "phpunit": "run-php-unit-tests",
+        "prepare-tests": "install-package-tests",
+        "test": "run-test-suite"
+    },
+    "support": {
+        "issues": "https://github.com/wp-cli/automated-tests/issues",
+        "source": "https://github.com/wp-cli/automated-tests",
+        "docs": "https://make.wordpress.org/cli/handbook/"
+    }
 }
