@@ -16,18 +16,23 @@ FAILED_PACKAGES=""
 
 REPOS=""
 
+if [ -z "$BUILD_DIR" ]; then
+	export BUILD_DIR="${TRAVIS_BUILD_DIR:-$(pwd)}"
+fi
+
 if [ -z "$TEST_PACKAGE" -o "$TEST_PACKAGE" == "none" ]; then
 	echo "Skipping feature tests completely."
 	exit 0
 fi
 
 if [ "$TEST_PACKAGE" == "all" ]; then
-	REPOS="wp-cli/wp-cli
-$(cat vendor/wp-cli/wp-cli/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
+	REPOS="wp-cli/wp-cli-bundle
+wp-cli-/wp-cli
+$(cat ${BUILD_DIR}/vendor/wp-cli/wp-cli-bundle/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
 fi
 
 if [ "$TEST_PACKAGE" == "commands" ]; then
-	REPOS="$(cat vendor/wp-cli/wp-cli/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
+	REPOS="$(cat ${BUILD_DIR}/vendor/wp-cli/wp-cli-bundle/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
 fi
 
 if [ "$TEST_PACKAGE" != "all" -a "$TEST_PACKAGE" != "commands" ]; then
@@ -38,15 +43,16 @@ for REPO in $REPOS; do
 
 	echo "Testing package $REPO..."
 
-	BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER=vendor/$REPO/features php ci/behat-tags.php)
+	BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER=${BUILD_DIR}/vendor/${REPO}/features php ${BUILD_DIR}/vendor/wp-cli/wp-cli-tests/utils/behat-tags.php)
+	echo "Behat Tags: $BEHAT_TAGS"
 
 	BEHAT_PROFILE=""
-	if [ "$REPO" != "wp-cli/wp-cli" ]; then
+	if [ "$REPO" != "wp-cli/wp-cli-bundle" ]; then
 		BEHAT_PROFILE=" --profile $REPO"
 	fi
 
 	set +e
-	vendor/bin/behat --format progress $BEHAT_TAGS --strict $BEHAT_PROFILE
+	"${BUILD_DIR}/vendor/bin/behat" --format progress $BEHAT_TAGS --strict $BEHAT_PROFILE
 	if [ $? -ne 0 ]; then
 		FAILED_PACKAGES="$FAILED_PACKAGES $REPO"
 	fi
