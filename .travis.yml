@@ -12,8 +12,8 @@ env:
 
 matrix:
   include:
-    - env: WP_VERSION=latest TEST_PACKAGE="wp-cli/wp-cli-bundle wp-cli/wp-cli" TEST_PHAR=v2-nightly
-    - env: WP_VERSION=latest TEST_PACKAGE=commands TEST_PHAR=v2-nightly
+    - env: WP_VERSION=latest TEST_PACKAGE="wp-cli/wp-cli-bundle wp-cli/wp-cli" TEST_PHAR=nightly
+    - env: WP_VERSION=latest TEST_PACKAGE=commands TEST_PHAR=nightly
     - env: WP_VERSION=latest TEST_PACKAGE="wp-cli/wp-cli-bundle wp-cli/wp-cli"
     - env: WP_VERSION=latest TEST_PACKAGE=commands
     - env: WP_VERSION=trunk TEST_PACKAGE="wp-cli/wp-cli-bundle wp-cli/wp-cli"
