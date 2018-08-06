@@ -1,32 +1,29 @@
 sudo: false
+dist: trusty
 
 language: php
 
+php: 7.1
+
 env:
   global:
-    - WP_CLI_BIN_DIR=/tmp/wp-cli-phar
+    - PATH="$TRAVIS_BUILD_DIR/vendor/bin:$PATH"
+    - WP_CLI_BIN_DIR="$TRAVIS_BUILD_DIR/vendor/bin"
 
 matrix:
   include:
-    - php: 7.0
-      env: WP_VERSION=latest TEST_PACKAGE="wp-cli/wp-cli-bundle wp-cli/wp-cli"
-    - php: 7.0
-      env: WP_VERSION=latest TEST_PACKAGE=commands
-    - php: 7.0
-      env: WP_VERSION=latest TEST_PACKAGE="wp-cli/wp-cli-bundle wp-cli/wp-cli" TEST_PHAR=nightly
-    - php: 7.0
-      env: WP_VERSION=latest TEST_PACKAGE=commands TEST_PHAR=nightly
-    - php: 7.0
-      env: WP_VERSION=latest TEST_PACKAGE="wp-cli/wp-cli-bundle wp-cli/wp-cli" TEST_PHAR=v2-nightly
-    - php: 7.0
-      env: WP_VERSION=latest TEST_PACKAGE=commands TEST_PHAR=v2-nightly
+    - env: WP_VERSION=latest TEST_PACKAGE="wp-cli/wp-cli-bundle wp-cli/wp-cli"
+    - env: WP_VERSION=latest TEST_PACKAGE=commands
+    - env: WP_VERSION=latest TEST_PACKAGE="wp-cli/wp-cli-bundle wp-cli/wp-cli" TEST_PHAR=nightly
+    - env: WP_VERSION=latest TEST_PACKAGE=commands TEST_PHAR=nightly
+    - env: WP_VERSION=latest TEST_PACKAGE="wp-cli/wp-cli-bundle wp-cli/wp-cli" TEST_PHAR=v2-nightly
+    - env: WP_VERSION=latest TEST_PACKAGE=commands TEST_PHAR=v2-nightly
 
 before_script:
-  - ./ci/prepare.sh
+  - composer prepare-tests
 
-script: ./ci/test.sh
-
-after_success: ./ci/deploy.sh
+script:
+  - composer test
 
 cache:
   directories:

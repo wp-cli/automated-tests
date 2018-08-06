@@ -26,22 +26,29 @@
 
 set -e
 
-BUILD_DIR=$(pwd)
+export BUILD_DIR="${TRAVIS_BUILD_DIR:-$(pwd)}"
 
-if [ ${TRAVIS_BUILD_DIR+x} ]; then
-	BUILD_DIR="$TRAVIS_BUILD_DIR"
+if [ -z "$WP_VERSION" ]; then
+	export WP_VERSION="latest"
 fi
 
-if [ $WP_VERSION = "latest" ]; then
-	export WP_VERSION=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -r ".offers[0].current")
+if [ -z "$TEST_PACKAGE" ]; then
+	export TEST_PACKAGE="all"
 fi
 
-if [ ${TEST_PACKAGE+x} ]; then
-	echo "Running source package tests..."
-	$BUILD_DIR/ci/test-package.sh
+if [ "$WP_VERSION" = "latest" ]; then
+	echo "WP_VERSION set to 'latest', detecting actual version number..."
+	export WP_VERSION="$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -r ".offers[0].current")"
+	echo "WP_VERSION => $WP_VERSION"
 fi
 
-if [ ${TEST_PHAR+x} ]; then
+if [ "${TEST_PHAR+x}" ]; then
 	echo "Running Phar distribution tests..."
-	$BUILD_DIR/ci/test-phar.sh
+	"${BUILD_DIR}/bin/test-phar"
+	exit
+fi
+
+if [ "${TEST_PACKAGE+x}" ]; then
+	echo "Running source package tests..."
+	"${BUILD_DIR}/bin/test-source"
 fi
