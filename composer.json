@@ -19,12 +19,6 @@
         "process-timeout": 7200,
         "sort-packages": true
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/wp-cli/wp-cli-tests"
-        }
-    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "bin": [
