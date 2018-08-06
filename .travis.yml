@@ -35,7 +35,7 @@ before_script:
   - composer prepare-tests
 
 install:
-  - composer install
+  - composer install --prefer-dist --no-interaction
   - composer prepare-tests
 
 script:
