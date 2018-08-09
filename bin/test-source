@@ -58,7 +58,10 @@ for REPO in $REPOS; do
 	if [ $? -ne 0 ]; then
 		"${BUILD_DIR}/vendor/bin/behat" --format progress $BEHAT_TAGS --strict $BEHAT_PROFILE --rerun=".behat-progress.log"
 		if [ $? -ne 0 ]; then
-			FAILED_PACKAGES="$FAILED_PACKAGES ${RELEASE}:${REPO}"
+			"${BUILD_DIR}/vendor/bin/behat" --format progress $BEHAT_TAGS --strict $BEHAT_PROFILE --rerun=".behat-progress.log"
+			if [ $? -ne 0 ]; then
+				FAILED_PACKAGES="$FAILED_PACKAGES ${RELEASE}:${REPO}"
+			fi
 		fi
 	fi
 	set -e
