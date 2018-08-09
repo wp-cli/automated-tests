@@ -10,7 +10,7 @@
     "require": {
         "php": ">=5.4",
         "wp-cli/wp-cli-bundle": "dev-master",
-        "wp-cli/wp-cli-tests": "^2.0.4"
+        "wp-cli/wp-cli-tests": "dev-master"
     },
     "config": {
         "platform": {
@@ -29,6 +29,7 @@
     ],
     "scripts": {
         "behat": "run-behat-tests",
+        "behat-rerun": "rerun-behat-tests",
         "lint": "run-linter-tests",
         "phpcs": "run-phpcs-tests",
         "phpunit": "run-php-unit-tests",
