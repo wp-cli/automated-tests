@@ -77,6 +77,12 @@ wp-cli/extension-command:
     features: 'vendor/wp-cli/extension-command/features'
     bootstrap: 'vendor/wp-cli/wp-cli-tests/features/bootstrap'
 
+# wp i18n
+wp-cli/i18n-command:
+  paths:
+    features: 'vendor/wp-cli/i18n-command/features'
+    bootstrap: 'vendor/wp-cli/wp-cli-tests/features/bootstrap'
+
 # wp import
 wp-cli/import-command:
   paths:
