@@ -45,6 +45,7 @@ fi
 if [ "${TEST_PHAR+x}" ]; then
 	echo "Running Phar distribution tests..."
 	"${BUILD_DIR}/bin/test-phar"
+	exit 0
 fi
 
 if [ "${TEST_PACKAGE+x}" ]; then
