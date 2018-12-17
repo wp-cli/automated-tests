@@ -43,13 +43,12 @@ fi
 if [ "${TEST_PHAR+x}" ]; then
 	echo "Running Phar distribution tests..."
 	"${BUILD_DIR}/bin/test-phar"
-	exit $?
 fi
 
 if [ "${TEST_PACKAGE+x}" ]; then
 	echo "Running source package tests..."
 	"${BUILD_DIR}/bin/test-source"
-	exit $?
 fi
 
+[  -z "$TRAVIS" ] || travis_terminate 0
 exit 0

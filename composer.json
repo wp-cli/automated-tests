@@ -22,7 +22,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "bin": [
-        "bin/bootstrap-test-suite",
         "bin/run-test-suite",
         "bin/test-phar",
         "bin/test-source"
