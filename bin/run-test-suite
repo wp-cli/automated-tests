@@ -24,6 +24,8 @@
 # - "stable": Use the latest stable phar release.
 # - "all": Use both the latest stable release phar as well as the nightly phar.
 
+set -e
+
 export BUILD_DIR="${TRAVIS_BUILD_DIR:-$(pwd)}"
 
 if [ -z "$WP_VERSION" ]; then
@@ -50,5 +52,4 @@ if [ "${TEST_PACKAGE+x}" ]; then
 	"${BUILD_DIR}/bin/test-source"
 fi
 
-[  -z "$TRAVIS" ] || travis_terminate 0
 exit 0
