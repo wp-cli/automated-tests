@@ -38,6 +38,9 @@ install:
 script:
   - composer test
 
+after_script:
+  - ps aux
+
 cache:
   directories:
   - $HOME/.composer/cache
