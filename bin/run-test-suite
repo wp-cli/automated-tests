@@ -45,14 +45,14 @@ fi
 if [ "${TEST_PHAR+x}" ]; then
 	echo "Running Phar distribution tests..."
 	"${BUILD_DIR}/bin/test-phar"
-	ps aux
+	killall php
 	exit 0
 fi
 
 if [ "${TEST_PACKAGE+x}" ]; then
 	echo "Running source package tests..."
 	"${BUILD_DIR}/bin/test-source"
-	ps aux
+	killall php
 fi
 
 exit 0
