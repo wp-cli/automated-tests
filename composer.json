@@ -10,7 +10,7 @@
     "require": {
         "php": ">=5.4",
         "wp-cli/wp-cli-bundle": "dev-master",
-        "wp-cli/wp-cli-tests": "dev-master"
+        "wp-cli/wp-cli-tests": "dev-46-terminate-built-in-server as dev-master"
     },
     "config": {
         "platform": {
