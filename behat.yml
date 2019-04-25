@@ -95,6 +95,12 @@ wp-cli/language-command:
     features: 'vendor/wp-cli/language-command/features'
     bootstrap: 'vendor/wp-cli/wp-cli-tests/features/bootstrap'
 
+# wp maintenance-mode
+wp-cli/maintenance-mode-command:
+  paths:
+    features: 'vendor/wp-cli/maintenance-mode-command/features'
+    bootstrap: 'vendor/wp-cli/wp-cli-tests/features/bootstrap'
+
 # wp media
 wp-cli/media-command:
   paths:
