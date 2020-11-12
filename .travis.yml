@@ -1,9 +1,11 @@
-sudo: false
-dist: trusty
+os: linux
+dist: xenial
 
 language: php
+php: 7.4
 
-php: 7.1.18
+services:
+  - mysql
 
 env:
   global:
