@@ -9,7 +9,7 @@ on:
 jobs:
 
   functional: #----------------------------------------------------------------------
-    name: ${{ matrix.test-package }} on WP ${{ matrix.wp }} / PHP ${{ matrix.php }}
+    name: ${{ matrix.test-package }} (Phar ${{ matrix.use-phar }} / WP ${{ matrix.wp }} / PHP ${{ matrix.php }})
     strategy:
       fail-fast: false
       matrix:
@@ -17,33 +17,33 @@ jobs:
         wp: ['latest', 'trunk']
         use-phar: [true, false]
         test-package:
-          - wp-cli/wp-cli-bundle
-          - wp-cli/wp-cli
-          - wp-cli/cache-command
-          - wp-cli/checksum-command
-          - wp-cli/config-command
-          - wp-cli/core-command
-          - wp-cli/cron-command
-          - wp-cli/db-command
-          - wp-cli/embed-command
-          - wp-cli/entity-command
-          - wp-cli/eval-command
-          - wp-cli/export-command
-          - wp-cli/extension-command
-          - wp-cli/i18n-command
-          - wp-cli/import-command
-          - wp-cli/language-command
-          - wp-cli/maintenance-mode-command
-          - wp-cli/media-command
-          - wp-cli/package-command
-          - wp-cli/rewrite-command
-          - wp-cli/role-command
-          - wp-cli/scaffold-command
-          - wp-cli/search-replace-command
-          - wp-cli/server-command
-          - wp-cli/shell-command
-          - wp-cli/super-admin-command
-          - wp-cli/widget-command
+          - wp-cli-bundle
+          - wp-cli
+          - cache-command
+          - checksum-command
+          - config-command
+          - core-command
+          - cron-command
+          - db-command
+          - embed-command
+          - entity-command
+          - eval-command
+          - export-command
+          - extension-command
+          - i18n-command
+          - import-command
+          - language-command
+          - maintenance-mode-command
+          - media-command
+          - package-command
+          - rewrite-command
+          - role-command
+          - scaffold-command
+          - search-replace-command
+          - server-command
+          - shell-command
+          - super-admin-command
+          - widget-command
     runs-on: ubuntu-latest
 
     services:
@@ -122,5 +122,5 @@ jobs:
         if: steps.check_files.outputs.files_exists == 'true'
         env:
           WP_VERSION: '${{ matrix.wp }}'
-          TEST_PACKAGE: '${{ matrix.test-package }}'
+          TEST_PACKAGE: 'wp-cli/${{ matrix.test-package }}'
         run: ${{ matrix.test }}
