@@ -123,4 +123,5 @@ jobs:
         env:
           WP_VERSION: '${{ matrix.wp }}'
           TEST_PACKAGE: 'wp-cli/${{ matrix.test-package }}'
-        run: ${{ matrix.test }}
+        run: |
+          composer test
