@@ -1,0 +1,124 @@
+name: Testing
+
+on:
+  push:
+  pull_request:
+
+jobs:
+
+  functional: #----------------------------------------------------------------------
+    name: Functional - WP ${{ matrix.wp }} on PHP ${{ matrix.php }}
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4']
+        wp: ['latest', 'trunk']
+        use-phar: [true, false]
+        test-package:
+          - wp-cli/wp-cli-bundle
+          - wp-cli/wp-cli
+          - wp-cli/cache-command
+          - wp-cli/checksum-command
+          - wp-cli/config-command
+          - wp-cli/core-command
+          - wp-cli/cron-command
+          - wp-cli/db-command
+          - wp-cli/embed-command
+          - wp-cli/entity-command
+          - wp-cli/eval-command
+          - wp-cli/export-command
+          - wp-cli/extension-command
+          - wp-cli/i18n-command
+          - wp-cli/import-command
+          - wp-cli/language-command
+          - wp-cli/maintenance-mode-command
+          - wp-cli/media-command
+          - wp-cli/package-command
+          - wp-cli/rewrite-command
+          - wp-cli/role-command
+          - wp-cli/scaffold-command
+          - wp-cli/search-replace-command
+          - wp-cli/server-command
+          - wp-cli/shell-command
+          - wp-cli/super-admin-command
+          - wp-cli/widget-command
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: wp_cli_test
+          MYSQL_USER: root
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: Check existence of composer.json & behat.yml files
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "composer.json, behat.yml"
+
+      - name: Set up PHP environment
+        if: steps.check_files.outputs.files_exists == 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '${{ matrix.php }}'
+          extensions: mysql, zip, imagick
+          coverage: none
+          tools: composer
+
+      - name: Get Composer cache directory
+        if: steps.check_files.outputs.files_exists == 'true'
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Use Composer cache
+        if: steps.check_files.outputs.files_exists == 'true'
+        uses: actions/cache@master
+        with:
+          path: ${{ steps['composer-cache'].outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Change ImageMagick policy to allow pdf->png conversion.
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: |
+          sudo sed -i 's/^.*policy.*coder.*none.*PDF.*//' /etc/ImageMagick-6/policy.xml
+
+      - name: Install dependencies
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: COMPOSER_ROOT_VERSION=dev-master composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Start MySQL server
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: sudo service mysql start
+
+      - name: Prepare test database
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: |
+          export MYQSL_HOST=127.0.0.1
+          export MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}
+          mysql -e 'CREATE DATABASE IF NOT EXISTS wp_cli_test;' -uroot -proot
+          mysql -e 'GRANT ALL PRIVILEGES ON wp_cli_test.* TO "wp_cli_test"@"127.0.0.1" IDENTIFIED BY "password1"' -uroot -proot
+          mysql -e 'GRANT ALL PRIVILEGES ON wp_cli_test_scaffold.* TO "wp_cli_test"@"127.0.0.1" IDENTIFIED BY "password1"' -uroot -proot
+
+      - name: Conditionally use Phar instead of source
+        if: steps.check_files.outputs.files_exists == 'true' && matrix.use-phar == true
+        run: |
+          echo "TEST_PHAR=nightly" > $GITHUB_ENV
+
+      - name: Run Behat
+        if: steps.check_files.outputs.files_exists == 'true'
+        env:
+          WP_VERSION: '${{ matrix.wp }}'
+          TEST_PACKAGE: '${{ matrix.test-package }}'
+        run: ${{ matrix.test }}
