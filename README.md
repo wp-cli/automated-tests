@@ -3,7 +3,7 @@ WP-CLI Automated Tests
 
 This repository runs automated tests for the nightly Phar builds of WP-CLI.
 
-[![Build Status](https://travis-ci.org/wp-cli/automated-tests.svg?branch=master)](https://travis-ci.org/wp-cli/automated-tests)
+[![Testing](https://github.com/wp-cli/automated-tests/actions/workflows/testing.yml/badge.svg)](https://github.com/wp-cli/automated-tests/actions/workflows/testing.yml)
 
 ## Usage Instructions
 
