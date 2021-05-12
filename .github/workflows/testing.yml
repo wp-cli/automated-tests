@@ -50,27 +50,27 @@ jobs:
           - widget-command
         include:
           - php: '7.0'
-            wp: 'stable'
+            wp: 'latest'
             mysql: '8.0'
             use-phar: true
             test-package: 'wp-cli-bundle'
           - php: '7.1'
-            wp: 'stable'
+            wp: 'latest'
             mysql: '8.0'
             use-phar: true
             test-package: 'wp-cli-bundle'
           - php: '7.2'
-            wp: 'stable'
+            wp: 'latest'
             mysql: '8.0'
             use-phar: true
             test-package: 'wp-cli-bundle'
           - php: '7.3'
-            wp: 'stable'
+            wp: 'latest'
             mysql: '8.0'
             use-phar: true
             test-package: 'wp-cli-bundle'
           - php: '7.4'
-            wp: 'stable'
+            wp: 'latest'
             mysql: '8.0'
             use-phar: true
             test-package: 'wp-cli-bundle'
