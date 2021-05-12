@@ -17,7 +17,7 @@ FAILED_PACKAGES=""
 REPOS=""
 
 if [ -z "$BUILD_DIR" ]; then
-	export BUILD_DIR="${TRAVIS_BUILD_DIR:-$(pwd)}"
+	export BUILD_DIR="${GITHUB_WORKSPACE:-$(pwd)}"
 fi
 
 if [ -z "$TEST_PACKAGE" -o "$TEST_PACKAGE" == "none" ]; then
@@ -46,22 +46,12 @@ for REPO in $REPOS; do
 	BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER=${BUILD_DIR}/vendor/${REPO}/features php ${BUILD_DIR}/vendor/wp-cli/wp-cli-tests/utils/behat-tags.php)
 	echo "Behat Tags: $BEHAT_TAGS"
 
-	BEHAT_PROFILE=""
-	if [ "$REPO" != "wp-cli/wp-cli-bundle" ]; then
-		BEHAT_PROFILE=" --profile $REPO"
-	fi
-
-	rm -f .behat-progress.log
-
 	set +e
-	"${BUILD_DIR}/vendor/bin/behat" --format progress $BEHAT_TAGS --strict $BEHAT_PROFILE --rerun=".behat-progress.log"
+	"${BUILD_DIR}/vendor/bin/behat" --format progress $BEHAT_TAGS --strict  --suite $REPO
 	if [ $? -ne 0 ]; then
-		"${BUILD_DIR}/vendor/bin/behat" --format progress $BEHAT_TAGS --strict $BEHAT_PROFILE --rerun=".behat-progress.log"
+		"${BUILD_DIR}/vendor/bin/behat" --format progress $BEHAT_TAGS --strict  --suite $REPO --rerun
 		if [ $? -ne 0 ]; then
-			"${BUILD_DIR}/vendor/bin/behat" --format progress $BEHAT_TAGS --strict $BEHAT_PROFILE --rerun=".behat-progress.log"
-			if [ $? -ne 0 ]; then
-				FAILED_PACKAGES="$FAILED_PACKAGES ${RELEASE}:${REPO}"
-			fi
+			FAILED_PACKAGES="$FAILED_PACKAGES ${RELEASE}:${REPO}"
 		fi
 	fi
 	set -e
