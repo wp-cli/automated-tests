@@ -124,11 +124,12 @@ jobs:
             mysql: '8.0'
             use-phar: false
             test-package: cache-command
-          - php: '8.0'
-            wp: 'trunk'
-            mysql: '8.0'
-            use-phar: false
-            test-package: checksum-command
+          # Checksums are not available for trunk versions of Core.
+          # - php: '8.0'
+          #   wp: 'trunk'
+          #   mysql: '8.0'
+          #   use-phar: false
+          #   test-package: checksum-command
           - php: '8.0'
             wp: 'trunk'
             mysql: '8.0'
