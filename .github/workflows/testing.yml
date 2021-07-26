@@ -330,7 +330,7 @@ jobs:
 
       - name: Conditionally use Phar instead of source
         if: steps.check_files.outputs.files_exists == 'true' && matrix.use-phar == true
-        run: echo "TEST_PHAR=nightly" > $GITHUB_ENV
+        run: echo "TEST_PHAR=nightly" >> $GITHUB_ENV
 
       - name: Run Behat
         if: steps.check_files.outputs.files_exists == 'true'
