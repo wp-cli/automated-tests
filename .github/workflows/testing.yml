@@ -292,36 +292,50 @@ jobs:
         run: |
           sudo sed -i 's/^.*policy.*coder.*none.*PDF.*//' /etc/ImageMagick-6/policy.xml
 
-      - name: Start MySQL server
-        if: steps.check_files.outputs.files_exists == 'true'
-        run: sudo systemctl start mysql
+      - name: Setup MySQL Server
+        id: setup-mysql
+        if: ${{ matrix.dbtype != 'sqlite' }}
+        uses: shogo82148/actions-setup-mysql@v1
+        with:
+          mysql-version: ${{ matrix.mysql }}
+          auto-start: true
+          root-password: root
+          user: wp_cli_test
+          password: password1
+          my-cnf: |
+            default_authentication_plugin=mysql_native_password
 
       - name: Configure DB environment
-        if: steps.check_files.outputs.files_exists == 'true'
+        if: ${{ matrix.dbtype != 'sqlite' }}
         run: |
           echo "MYSQL_HOST=127.0.0.1" >> $GITHUB_ENV
-          echo "MYSQL_TCP_PORT=${{ job.services.mysql.ports['3306'] }}" >> $GITHUB_ENV
+          echo "MYSQL_TCP_PORT=3306" >> $GITHUB_ENV
           echo "WP_CLI_TEST_DBROOTUSER=root" >> $GITHUB_ENV
           echo "WP_CLI_TEST_DBROOTPASS=root" >> $GITHUB_ENV
+          echo "WP_CLI_TEST_DBNAME=wp_cli_test" >> $GITHUB_ENV
           echo "WP_CLI_TEST_DBUSER=wp_cli_test" >> $GITHUB_ENV
           echo "WP_CLI_TEST_DBPASS=password1" >> $GITHUB_ENV
-          echo "WP_CLI_TEST_DBHOST=127.0.0.1:${{ job.services.mysql.ports['3306'] }}" >> $GITHUB_ENV
+          echo "WP_CLI_TEST_DBHOST=127.0.0.1:3306" >> $GITHUB_ENV
 
       - name: Prepare test database
         if: steps.check_files.outputs.files_exists == 'true'
         run: composer prepare-tests
 
-      - name: Check Behat environment
-        if: steps.check_files.outputs.files_exists == 'true'
-        run: WP_CLI_TEST_DEBUG_BEHAT_ENV=1 composer behat
-
       - name: Conditionally use Phar instead of source
         if: steps.check_files.outputs.files_exists == 'true' && matrix.use-phar == true
         run: echo "TEST_PHAR=nightly" >> $GITHUB_ENV
+
+      - name: Check Behat environment
+        if: steps.check_files.outputs.files_exists == 'true'
+        env:
+          WP_VERSION: '${{ matrix.wp }}'
+          WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
+        run: WP_CLI_TEST_DEBUG_BEHAT_ENV=1 composer behat
 
       - name: Run Behat
         if: steps.check_files.outputs.files_exists == 'true'
         env:
           WP_VERSION: '${{ matrix.wp }}'
           TEST_PACKAGE: 'wp-cli/${{ matrix.test-package }}'
+          WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
         run: composer test
