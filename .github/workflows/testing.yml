@@ -75,16 +75,6 @@ jobs:
             mysql: '8.0'
             use-phar: true
             test-package: 'wp-cli-bundle'
-          - php: '7.0'
-            wp: 'trunk'
-            mysql: '8.0'
-            use-phar: true
-            test-package: 'wp-cli-bundle'
-          - php: '7.1'
-            wp: 'trunk'
-            mysql: '8.0'
-            use-phar: true
-            test-package: 'wp-cli-bundle'
           - php: '7.2'
             wp: 'trunk'
             mysql: '8.0'
