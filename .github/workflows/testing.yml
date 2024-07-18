@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.0', '8.1']
+        php: ['7.2', '8.1']
         wp: ['latest']
         mysql: ['8.0']
         use-phar: [true]
@@ -50,16 +50,6 @@ jobs:
           - super-admin-command
           - widget-command
         include:
-          - php: '7.0'
-            wp: 'latest'
-            mysql: '8.0'
-            use-phar: true
-            test-package: 'wp-cli-bundle'
-          - php: '7.1'
-            wp: 'latest'
-            mysql: '8.0'
-            use-phar: true
-            test-package: 'wp-cli-bundle'
           - php: '7.2'
             wp: 'latest'
             mysql: '8.0'
