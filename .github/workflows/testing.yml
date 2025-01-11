@@ -226,7 +226,7 @@ jobs:
             mysql: '8.0'
             use-phar: false
             test-package: widget-command
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     services:
       mysql:
