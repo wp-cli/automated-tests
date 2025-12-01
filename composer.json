@@ -11,7 +11,7 @@
         "php": ">=7.2.24 | ^8",
         "wp-cli/wp-cli": "dev-main",
         "wp-cli/wp-cli-bundle": "dev-main",
-        "wp-cli/wp-cli-tests": "^4"
+        "wp-cli/wp-cli-tests": "^5"
     },
     "config": {
         "process-timeout": 7200,
