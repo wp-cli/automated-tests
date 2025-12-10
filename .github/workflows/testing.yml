@@ -24,6 +24,8 @@ jobs:
         test-package:
           - wp-cli-bundle
           - wp-cli
+          - ability-command
+          - block-command
           - cache-command
           - checksum-command
           - config-command
