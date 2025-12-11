@@ -15,6 +15,20 @@ default:
       paths:
         - vendor/wp-cli/wp-cli/features
 
+    # wp ability
+    wp-cli/ability-command:
+      contexts:
+        - WP_CLI\Tests\Context\FeatureContext
+      paths:
+        - vendor/wp-cli/ability-command/features
+
+    # wp block
+    wp-cli/block-command:
+      contexts:
+        - WP_CLI\Tests\Context\FeatureContext
+      paths:
+        - vendor/wp-cli/block-command/features
+
     # wp cache
     wp-cli/cache-command:
       contexts:
