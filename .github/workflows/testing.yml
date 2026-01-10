@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.2', '8.1']
+        php: ['7.2', '8.5']
         wp: ['latest']
         mysql: ['8.0']
         use-phar: [true]
@@ -67,16 +67,6 @@ jobs:
             mysql: '8.0'
             use-phar: true
             test-package: 'wp-cli-bundle'
-          - php: '7.2'
-            wp: 'trunk'
-            mysql: '8.0'
-            use-phar: true
-            test-package: 'wp-cli-bundle'
-          - php: '7.3'
-            wp: 'trunk'
-            mysql: '8.0'
-            use-phar: true
-            test-package: 'wp-cli-bundle'
           - php: '7.4'
             wp: 'trunk'
             mysql: '8.0'
@@ -87,22 +77,22 @@ jobs:
             mysql: '8.0'
             use-phar: true
             test-package: 'wp-cli-bundle'
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: true
             test-package: 'wp-cli-bundle'
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: wp-cli-bundle
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: wp-cli
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
@@ -113,117 +103,117 @@ jobs:
           #   mysql: '8.0'
           #   use-phar: false
           #   test-package: checksum-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: config-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: core-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: cron-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: db-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: embed-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: entity-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: eval-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: export-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: extension-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: i18n-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: import-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: language-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: maintenance-mode-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: media-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: package-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: rewrite-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: role-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: scaffold-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: search-replace-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: server-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: shell-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
             test-package: super-admin-command
-          - php: '8.1'
+          - php: '8.5'
             wp: 'trunk'
             mysql: '8.0'
             use-phar: false
