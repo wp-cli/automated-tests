@@ -335,7 +335,7 @@ jobs:
         if: steps.check_files.outputs.files_exists == 'true'
         env:
           WP_VERSION: '${{ matrix.wp }}'
-          WP_CLI_TEST_DBTYPE: ${{ matrix.dbtype || 'mysql' }}
+          WP_CLI_TEST_DBTYPE: ${{ matrix.dbtype }}
           WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
         run: WP_CLI_TEST_DEBUG_BEHAT_ENV=1 composer behat
 
@@ -343,7 +343,7 @@ jobs:
         if: steps.check_files.outputs.files_exists == 'true'
         env:
           WP_VERSION: '${{ matrix.wp }}'
-          WP_CLI_TEST_DBTYPE: ${{ matrix.dbtype || 'mysql' }}
+          WP_CLI_TEST_DBTYPE: ${{ matrix.dbtype }}
           TEST_PACKAGE: 'wp-cli/${{ matrix.test-package }}'
           WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
         run: composer test
