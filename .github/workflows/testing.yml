@@ -20,7 +20,7 @@ jobs:
         php: ['7.2', '8.5']
         wp: ['latest']
         mysql: ['8.0']
-        dbtype: ['mysql']
+        dbtype: ['mysql', 'sqlite']
         use-phar: [true]
         test-package:
           - wp-cli-bundle
@@ -219,37 +219,6 @@ jobs:
             mysql: '8.0'
             use-phar: false
             test-package: widget-command
-          # SQLite test entries
-          - php: '8.5'
-            wp: 'trunk'
-            dbtype: 'sqlite'
-            use-phar: true
-            test-package: 'wp-cli-bundle'
-          - php: '8.5'
-            wp: 'trunk'
-            dbtype: 'sqlite'
-            use-phar: false
-            test-package: 'wp-cli'
-          - php: '8.5'
-            wp: 'trunk'
-            dbtype: 'sqlite'
-            use-phar: false
-            test-package: 'cache-command'
-          - php: '8.5'
-            wp: 'trunk'
-            dbtype: 'sqlite'
-            use-phar: false
-            test-package: 'config-command'
-          - php: '8.5'
-            wp: 'trunk'
-            dbtype: 'sqlite'
-            use-phar: false
-            test-package: 'core-command'
-          - php: '8.5'
-            wp: 'trunk'
-            dbtype: 'sqlite'
-            use-phar: false
-            test-package: 'entity-command'
     runs-on: ubuntu-22.04
 
     continue-on-error: ${{ matrix.dbtype == 'sqlite' }}
