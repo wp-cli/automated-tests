@@ -13,13 +13,14 @@ on:
 jobs:
 
   functional: #----------------------------------------------------------------------
-    name: ${{ matrix.test-package }} (Phar ${{ matrix.use-phar }} / WP ${{ matrix.wp }} / PHP ${{ matrix.php }})
+    name: ${{ matrix.test-package }} (Phar ${{ matrix.use-phar }} / WP ${{ matrix.wp }} / PHP ${{ matrix.php }} / ${{ matrix.dbtype == 'sqlite' && 'SQLite' || format('MySQL {0}', matrix.mysql) }})
     strategy:
       fail-fast: false
       matrix:
         php: ['7.2', '8.5']
         wp: ['latest']
         mysql: ['8.0']
+        dbtype: ['mysql']
         use-phar: [true]
         test-package:
           - wp-cli-bundle
@@ -218,7 +219,40 @@ jobs:
             mysql: '8.0'
             use-phar: false
             test-package: widget-command
+          # SQLite test entries
+          - php: '8.5'
+            wp: 'trunk'
+            dbtype: 'sqlite'
+            use-phar: true
+            test-package: 'wp-cli-bundle'
+          - php: '8.5'
+            wp: 'trunk'
+            dbtype: 'sqlite'
+            use-phar: false
+            test-package: 'wp-cli'
+          - php: '8.5'
+            wp: 'trunk'
+            dbtype: 'sqlite'
+            use-phar: false
+            test-package: 'cache-command'
+          - php: '8.5'
+            wp: 'trunk'
+            dbtype: 'sqlite'
+            use-phar: false
+            test-package: 'config-command'
+          - php: '8.5'
+            wp: 'trunk'
+            dbtype: 'sqlite'
+            use-phar: false
+            test-package: 'core-command'
+          - php: '8.5'
+            wp: 'trunk'
+            dbtype: 'sqlite'
+            use-phar: false
+            test-package: 'entity-command'
     runs-on: ubuntu-22.04
+
+    continue-on-error: ${{ matrix.dbtype == 'sqlite' }}
 
     services:
       mysql:
@@ -248,7 +282,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '${{ matrix.php }}'
-          extensions: gd, imagick, mysql, zip
+          extensions: gd, imagick, mysql, zip, pdo_sqlite
           coverage: none
           tools: composer
 
@@ -290,7 +324,7 @@ jobs:
           echo "WP_CLI_TEST_DBHOST=127.0.0.1:3306" >> $GITHUB_ENV
 
       - name: Prepare test database
-        if: steps.check_files.outputs.files_exists == 'true'
+        if: steps.check_files.outputs.files_exists == 'true' && matrix.dbtype != 'sqlite'
         run: composer prepare-tests
 
       - name: Conditionally use Phar instead of source
@@ -301,6 +335,7 @@ jobs:
         if: steps.check_files.outputs.files_exists == 'true'
         env:
           WP_VERSION: '${{ matrix.wp }}'
+          WP_CLI_TEST_DBTYPE: ${{ matrix.dbtype || 'mysql' }}
           WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
         run: WP_CLI_TEST_DEBUG_BEHAT_ENV=1 composer behat
 
@@ -308,6 +343,7 @@ jobs:
         if: steps.check_files.outputs.files_exists == 'true'
         env:
           WP_VERSION: '${{ matrix.wp }}'
+          WP_CLI_TEST_DBTYPE: ${{ matrix.dbtype || 'mysql' }}
           TEST_PACKAGE: 'wp-cli/${{ matrix.test-package }}'
           WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
         run: composer test
