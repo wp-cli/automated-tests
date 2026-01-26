@@ -49,6 +49,7 @@ jobs:
           - search-replace-command
           - server-command
           - shell-command
+          - site-health-command
           - super-admin-command
           - widget-command
         include:
