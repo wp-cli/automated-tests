@@ -190,6 +190,13 @@ default:
       paths:
         - vendor/wp-cli/shell-command/features
 
+    # wp site-health
+    wp-cli/site-health-command:
+      contexts:
+        - WP_CLI\Tests\Context\FeatureContext
+      paths:
+        - vendor/wp-cli/site-health-command/features
+
     # wp super-admin
     wp-cli/super-admin-command:
       contexts:
