@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": ">=7.2.24 | ^8",
+        "wp-cli/package-command": "dev-main",
         "wp-cli/wp-cli": "dev-main",
         "wp-cli/wp-cli-bundle": "dev-main",
         "wp-cli/wp-cli-tests": "^5"
