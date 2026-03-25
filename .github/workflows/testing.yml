@@ -13,7 +13,7 @@ on:
 jobs:
 
   functional:
-    name: ${{ matrix.test-package }} / Phar ${{ matrix.use-phar }} / WP ${{ matrix.wp }} / PHP ${{ matrix.php }} / ${{ matrix.dbtype == 'sqlite' && 'SQLite' || 'MySQL' }}${{ matrix.object_cache == 'sqlite' && ' + Cache' || '' }}
+    name: ${{ matrix.test-package }}
     strategy:
       fail-fast: false
       matrix:

@@ -24,8 +24,8 @@ on:
 
 jobs:
   run-test:
+    name: Phar ${{ matrix.use-phar }} | WP ${{ matrix.wp }} | PHP ${{ matrix.php }} | ${{ matrix.dbtype == 'sqlite' && 'SQLite' || matrix.dbtype == 'mysql' && 'MySQL' || 'MariaDB' }}${{ matrix.object_cache == 'sqlite' && '(Obj Cache)' || '' }}
     runs-on: ubuntu-22.04
-
     continue-on-error: ${{ inputs.dbtype == 'sqlite' || inputs.object_cache == 'sqlite' }}
 
     env:
