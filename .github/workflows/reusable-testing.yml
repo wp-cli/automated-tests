@@ -24,7 +24,7 @@ on:
 
 jobs:
   run-test:
-    name: Phar ${{ matrix.use-phar }} | WP ${{ matrix.wp }} | PHP ${{ matrix.php }} | ${{ matrix.dbtype == 'sqlite' && 'SQLite' || matrix.dbtype == 'mysql' && 'MySQL' || 'MariaDB' }}${{ matrix.object_cache == 'sqlite' && '(Obj Cache)' || '' }}
+    name: WP ${{ input.wp }} | PHP ${{ input.php }} | ${{ input.dbtype == 'sqlite' && 'SQLite' || input.dbtype == 'mysql' && 'MySQL' || 'MariaDB' }}${{ input.object_cache == 'sqlite' && '(Obj Cache)' || '' }}${{ input.use-phar && '(Phar)' || '' }}
     runs-on: ubuntu-22.04
     continue-on-error: ${{ inputs.dbtype == 'sqlite' || inputs.object_cache == 'sqlite' }}
 
