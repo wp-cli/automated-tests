@@ -24,7 +24,7 @@ on:
 
 jobs:
   run-test:
-    name: WP ${{ input.wp }} | PHP ${{ input.php }} | ${{ input.dbtype == 'sqlite' && 'SQLite' || input.dbtype == 'mysql' && 'MySQL' || 'MariaDB' }}${{ input.object_cache == 'sqlite' && '(Obj Cache)' || '' }}${{ input.use-phar && '(Phar)' || '' }}
+    name: WP ${{ inputs.wp }} | PHP ${{ inputs.php }} | ${{ inputs.dbtype == 'sqlite' && 'SQLite' || inputs.dbtype == 'mysql' && 'MySQL' || 'MariaDB' }}${{ inputs.object_cache == 'sqlite' && '(Obj Cache)' || '' }}${{ inputs.use-phar && '(Phar)' || '' }}
     runs-on: ubuntu-22.04
     continue-on-error: ${{ inputs.dbtype == 'sqlite' || inputs.object_cache == 'sqlite' }}
 
