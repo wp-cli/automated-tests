@@ -6,40 +6,27 @@ on:
       test-package:
         type: string
         required: true
+      php:
+        type: string
+        required: true
+      wp:
+        type: string
+        required: true
+      dbtype:
+        type: string
+        required: true
+      object_cache:
+        type: string
+        required: true
+      use-phar:
+        type: boolean
+        required: true
 
 jobs:
   run-test:
-    name: Phar ${{ matrix.use-phar }} / WP ${{ matrix.wp }} / PHP ${{ matrix.php }} / ${{ matrix.dbtype == 'sqlite' && 'SQLite' || 'MySQL' }}${{ matrix.object_cache == 'sqlite' && ' + Cache' || '' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        php: ['7.2', '8.5']
-        wp: ['latest', 'trunk']
-        dbtype: ['mysql', 'sqlite']
-        object_cache: ['none', 'sqlite']
-        use-phar: [false, true]
-        exclude:
-          # Object cache runs only on sqlite dbtype
-          - dbtype: mysql
-            object_cache: sqlite
-            
-          # A1: object_cache=sqlite only on PHP 8.5
-          - php: '7.2'
-            object_cache: sqlite
-            
-          # Phar usage match defaults 
-          - use-phar: true
-            wp: trunk
-          - use-phar: false
-            wp: latest
-            
-          # Limit ancient php on trunk
-          - php: '7.2'
-            wp: trunk
-
     runs-on: ubuntu-22.04
 
-    continue-on-error: ${{ matrix.dbtype == 'sqlite' || matrix.object_cache == 'sqlite' }}
+    continue-on-error: ${{ inputs.dbtype == 'sqlite' || inputs.object_cache == 'sqlite' }}
 
     env:
       MYSQL_HOST: 127.0.0.1
@@ -50,7 +37,7 @@ jobs:
       WP_CLI_TEST_DBUSER: wp_cli_test
       WP_CLI_TEST_DBPASS: password1
       WP_CLI_TEST_DBHOST: 127.0.0.1:3306
-      WP_CLI_TEST_OBJECT_CACHE: ${{ matrix.object_cache }}
+      WP_CLI_TEST_OBJECT_CACHE: ${{ inputs.object_cache }}
 
     steps:
       - name: Check out source code
@@ -70,7 +57,7 @@ jobs:
         if: steps.check_files.outputs.files_exists == 'true'
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '${{ matrix.php }}'
+          php-version: '${{ inputs.php }}'
           extensions: gd, imagick, mysql, zip, pdo_sqlite
           coverage: none
           tools: composer
@@ -88,7 +75,7 @@ jobs:
 
       - name: Setup MySQL Server
         id: setup-mysql
-        if: ${{ matrix.dbtype != 'sqlite' }}
+        if: ${{ inputs.dbtype != 'sqlite' }}
         uses: shogo82148/actions-setup-mysql@v1
         with:
           mysql-version: '8.0' # Standard MySQL version for these tests
@@ -100,26 +87,26 @@ jobs:
             default_authentication_plugin=mysql_native_password
 
       - name: Prepare test database
-        if: steps.check_files.outputs.files_exists == 'true' && matrix.dbtype != 'sqlite'
+        if: steps.check_files.outputs.files_exists == 'true' && inputs.dbtype != 'sqlite'
         run: composer prepare-tests
 
       - name: Conditionally use Phar instead of source
-        if: steps.check_files.outputs.files_exists == 'true' && matrix.use-phar == true
+        if: steps.check_files.outputs.files_exists == 'true' && inputs.use-phar == true
         run: echo "TEST_PHAR=nightly" >> $GITHUB_ENV
 
       - name: Check Behat environment
         if: steps.check_files.outputs.files_exists == 'true'
         env:
-          WP_VERSION: '${{ matrix.wp }}'
-          WP_CLI_TEST_DBTYPE: ${{ matrix.dbtype }}
+          WP_VERSION: '${{ inputs.wp }}'
+          WP_CLI_TEST_DBTYPE: ${{ inputs.dbtype }}
           WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
         run: WP_CLI_TEST_DEBUG_BEHAT_ENV=1 composer behat
 
       - name: Run Behat
         if: steps.check_files.outputs.files_exists == 'true'
         env:
-          WP_VERSION: '${{ matrix.wp }}'
-          WP_CLI_TEST_DBTYPE: ${{ matrix.dbtype }}
+          WP_VERSION: '${{ inputs.wp }}'
+          WP_CLI_TEST_DBTYPE: ${{ inputs.dbtype }}
           TEST_PACKAGE: 'wp-cli/${{ inputs.test-package }}'
           WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
         run: composer test

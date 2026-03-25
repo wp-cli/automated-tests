@@ -13,9 +13,15 @@ on:
 jobs:
 
   functional:
+    name: ${{ matrix.test-package }} / Phar ${{ matrix.use-phar }} / WP ${{ matrix.wp }} / PHP ${{ matrix.php }} / ${{ matrix.dbtype == 'sqlite' && 'SQLite' || 'MySQL' }}${{ matrix.object_cache == 'sqlite' && ' + Cache' || '' }}
     strategy:
       fail-fast: false
       matrix:
+        php: ['7.2', '8.5']
+        wp: ['latest', 'trunk']
+        dbtype: ['mysql', 'sqlite']
+        object_cache: ['none', 'sqlite']
+        use-phar: [false, true]
         test-package:
           - wp-cli-bundle
           - wp-cli
@@ -47,8 +53,31 @@ jobs:
           - site-health-command
           - super-admin-command
           - widget-command
-
-    uses: ./.github/workflows/callable-test.yml
+        exclude:
+          # Object cache runs only on sqlite dbtype
+          - dbtype: mysql
+            object_cache: sqlite
+            
+          # A1: object_cache=sqlite only on PHP 8.5
+          - php: '7.2'
+            object_cache: sqlite
+            
+          # Phar usage match defaults 
+          - use-phar: true
+            wp: trunk
+          - use-phar: false
+            wp: latest
+            
+          # Limit ancient php on trunk
+          - php: '7.2'
+            wp: trunk
+            
+    uses: ./.github/workflows/reusable-testing.yml
     with:
       test-package: ${{ matrix.test-package }}
+      php: ${{ matrix.php }}
+      wp: ${{ matrix.wp }}
+      dbtype: ${{ matrix.dbtype }}
+      object_cache: ${{ matrix.object_cache }}
+      use-phar: ${{ matrix.use-phar }}
 
