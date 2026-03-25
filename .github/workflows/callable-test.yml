@@ -1,0 +1,125 @@
+name: Run Tests
+
+on:
+  workflow_call:
+    inputs:
+      test-package:
+        type: string
+        required: true
+
+jobs:
+  run-test:
+    name: ${{ inputs.test-package }} (Phar ${{ matrix.use-phar }} / WP ${{ matrix.wp }} / PHP ${{ matrix.php }} / ${{ matrix.dbtype == 'sqlite' && 'SQLite' || 'MySQL' }}${{ matrix.object_cache == 'sqlite' && ' + Cache' || '' }})
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.2', '8.5']
+        wp: ['latest', 'trunk']
+        dbtype: ['mysql', 'sqlite']
+        object_cache: ['none', 'sqlite']
+        use-phar: [false, true]
+        exclude:
+          # Object cache runs only on sqlite dbtype
+          - dbtype: mysql
+            object_cache: sqlite
+            
+          # A1: object_cache=sqlite only on PHP 8.5
+          - php: '7.2'
+            object_cache: sqlite
+            
+          # Phar usage match defaults 
+          - use-phar: true
+            wp: trunk
+          - use-phar: false
+            wp: latest
+            
+          # Limit ancient php on trunk
+          - php: '7.2'
+            wp: trunk
+
+    runs-on: ubuntu-22.04
+
+    continue-on-error: ${{ matrix.dbtype == 'sqlite' || matrix.object_cache == 'sqlite' }}
+
+    env:
+      MYSQL_HOST: 127.0.0.1
+      MYSQL_TCP_PORT: 3306
+      WP_CLI_TEST_DBROOTUSER: root
+      WP_CLI_TEST_DBROOTPASS: root
+      WP_CLI_TEST_DBNAME: wp_cli_test
+      WP_CLI_TEST_DBUSER: wp_cli_test
+      WP_CLI_TEST_DBPASS: password1
+      WP_CLI_TEST_DBHOST: 127.0.0.1:3306
+      WP_CLI_TEST_OBJECT_CACHE: ${{ matrix.object_cache }}
+
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v6
+
+      - name: Check existence of composer.json & behat.yml files
+        id: check_files
+        run: echo "files_exists=$([ -f composer.json ] && [ -f behat.yml ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+      - name: Install Ghostscript
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install ghostscript -y
+
+      - name: Set up PHP environment
+        if: steps.check_files.outputs.files_exists == 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '${{ matrix.php }}'
+          extensions: gd, imagick, mysql, zip, pdo_sqlite
+          coverage: none
+          tools: composer
+
+      - name: Install Composer dependencies & cache dependencies
+        if: steps.check_files.outputs.files_exists == 'true'
+        uses: "ramsey/composer-install@v4"
+        env:
+          COMPOSER_ROOT_VERSION: dev-${{ github.event.repository.default_branch }}
+
+      - name: Change ImageMagick policy to allow pdf->png conversion.
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: |
+          sudo sed -i 's/^.*policy.*coder.*none.*PDF.*//' /etc/ImageMagick-6/policy.xml
+
+      - name: Setup MySQL Server
+        id: setup-mysql
+        if: ${{ matrix.dbtype != 'sqlite' }}
+        uses: shogo82148/actions-setup-mysql@v1
+        with:
+          mysql-version: '8.0' # Standard MySQL version for these tests
+          auto-start: true
+          root-password: ${{ env.WP_CLI_TEST_DBROOTPASS }}
+          user: ${{ env.WP_CLI_TEST_DBUSER}}
+          password: ${{ env.WP_CLI_TEST_DBPASS}}
+          my-cnf: |
+            default_authentication_plugin=mysql_native_password
+
+      - name: Prepare test database
+        if: steps.check_files.outputs.files_exists == 'true' && matrix.dbtype != 'sqlite'
+        run: composer prepare-tests
+
+      - name: Conditionally use Phar instead of source
+        if: steps.check_files.outputs.files_exists == 'true' && matrix.use-phar == true
+        run: echo "TEST_PHAR=nightly" >> $GITHUB_ENV
+
+      - name: Check Behat environment
+        if: steps.check_files.outputs.files_exists == 'true'
+        env:
+          WP_VERSION: '${{ matrix.wp }}'
+          WP_CLI_TEST_DBTYPE: ${{ matrix.dbtype }}
+          WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
+        run: WP_CLI_TEST_DEBUG_BEHAT_ENV=1 composer behat
+
+      - name: Run Behat
+        if: steps.check_files.outputs.files_exists == 'true'
+        env:
+          WP_VERSION: '${{ matrix.wp }}'
+          WP_CLI_TEST_DBTYPE: ${{ matrix.dbtype }}
+          TEST_PACKAGE: 'wp-cli/${{ matrix.test-package }}'
+          WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
+        run: composer test
