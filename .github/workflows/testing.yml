@@ -58,6 +58,16 @@ jobs:
           - dbtype: mysql
             object_cache: sqlite
             
+          # SQLite runs only on WP latest and PHP 8.5
+          - dbtype: sqlite
+            wp: trunk
+          - dbtype: sqlite
+            php: '7.2'
+            
+          # Object cache runs only with WP latest
+          - object_cache: sqlite
+            wp: trunk
+            
           # A1: object_cache=sqlite only on PHP 8.5
           - php: '7.2'
             object_cache: sqlite
