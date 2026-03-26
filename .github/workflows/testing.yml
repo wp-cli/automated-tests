@@ -26,6 +26,7 @@ jobs:
           - wp-cli-bundle
           - wp-cli
           - ability-command
+          - ai-command
           - block-command
           - cache-command
           - checksum-command
