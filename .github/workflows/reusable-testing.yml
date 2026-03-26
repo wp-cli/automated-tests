@@ -1,0 +1,112 @@
+name: Run Tests
+
+on:
+  workflow_call:
+    inputs:
+      test-package:
+        type: string
+        required: true
+      php:
+        type: string
+        required: true
+      wp:
+        type: string
+        required: true
+      dbtype:
+        type: string
+        required: true
+      object_cache:
+        type: string
+        required: true
+      use-phar:
+        type: boolean
+        required: true
+
+jobs:
+  run-test:
+    name: WP ${{ inputs.wp }} | PHP ${{ inputs.php }} | ${{ inputs.dbtype == 'sqlite' && 'SQLite' || inputs.dbtype == 'mysql' && 'MySQL' || 'MariaDB' }}${{ inputs.use-phar && ' (Phar)' || '' }}${{ inputs.object_cache == 'sqlite' && ' (Obj Cache)' || '' }}
+    runs-on: ubuntu-22.04
+    continue-on-error: ${{ inputs.dbtype == 'sqlite' || inputs.object_cache == 'sqlite' }}
+
+    env:
+      MYSQL_HOST: 127.0.0.1
+      MYSQL_TCP_PORT: 3306
+      WP_CLI_TEST_DBROOTUSER: root
+      WP_CLI_TEST_DBROOTPASS: root
+      WP_CLI_TEST_DBNAME: wp_cli_test
+      WP_CLI_TEST_DBUSER: wp_cli_test
+      WP_CLI_TEST_DBPASS: password1
+      WP_CLI_TEST_DBHOST: 127.0.0.1:3306
+      WP_CLI_TEST_OBJECT_CACHE: ${{ inputs.object_cache }}
+
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Check existence of composer.json & behat.yml files
+        id: check_files
+        run: echo "files_exists=$([ -f composer.json ] && [ -f behat.yml ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+      - name: Install Ghostscript
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install ghostscript -y
+
+      - name: Set up PHP environment
+        if: steps.check_files.outputs.files_exists == 'true'
+        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
+        with:
+          php-version: '${{ inputs.php }}'
+          extensions: gd, imagick, mysql, zip, pdo_sqlite
+          coverage: none
+          tools: composer
+
+      - name: Install Composer dependencies & cache dependencies
+        if: steps.check_files.outputs.files_exists == 'true'
+        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # v4
+        env:
+          COMPOSER_ROOT_VERSION: dev-${{ github.event.repository.default_branch }}
+
+      - name: Change ImageMagick policy to allow pdf->png conversion.
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: |
+          sudo sed -i 's/^.*policy.*coder.*none.*PDF.*//' /etc/ImageMagick-6/policy.xml
+
+      - name: Setup MySQL Server
+        id: setup-mysql
+        if: ${{ inputs.dbtype != 'sqlite' }}
+        uses: shogo82148/actions-setup-mysql@840178c12b07a58353c6312be784c23b63756eea # v1
+        with:
+          mysql-version: '8.0' # Standard MySQL version for these tests
+          auto-start: true
+          root-password: ${{ env.WP_CLI_TEST_DBROOTPASS }}
+          user: ${{ env.WP_CLI_TEST_DBUSER}}
+          password: ${{ env.WP_CLI_TEST_DBPASS}}
+          my-cnf: |
+            default_authentication_plugin=mysql_native_password
+
+      - name: Prepare test database
+        if: steps.check_files.outputs.files_exists == 'true' && inputs.dbtype != 'sqlite'
+        run: composer prepare-tests
+
+      - name: Conditionally use Phar instead of source
+        if: steps.check_files.outputs.files_exists == 'true' && inputs.use-phar == true
+        run: echo "TEST_PHAR=nightly" >> $GITHUB_ENV
+
+      - name: Check Behat environment
+        if: steps.check_files.outputs.files_exists == 'true'
+        env:
+          WP_VERSION: '${{ inputs.wp }}'
+          WP_CLI_TEST_DBTYPE: ${{ inputs.dbtype }}
+          WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
+        run: WP_CLI_TEST_DEBUG_BEHAT_ENV=1 composer behat
+
+      - name: Run Behat
+        if: steps.check_files.outputs.files_exists == 'true'
+        env:
+          WP_VERSION: '${{ inputs.wp }}'
+          WP_CLI_TEST_DBTYPE: ${{ inputs.dbtype }}
+          TEST_PACKAGE: 'wp-cli/${{ inputs.test-package }}'
+          WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
+        run: composer test
