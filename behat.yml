@@ -22,6 +22,13 @@ default:
       paths:
         - vendor/wp-cli/ability-command/features
 
+    # wp ai
+    wp-cli/ai-command:
+      contexts:
+        - WP_CLI\Tests\Context\FeatureContext
+      paths:
+        - vendor/wp-cli/ai-command/features
+
     # wp block
     wp-cli/block-command:
       contexts:
