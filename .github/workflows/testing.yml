@@ -84,29 +84,25 @@ jobs:
           - php: '7.2'
             wp: trunk
             
-          # Only run one macos combination: php: 8.5, wp: latest, dbtype: sqlite, object_cache: none, use-phar: true
+          # Only run one macos combination: php: 8.5, wp: trunk, dbtype: sqlite, object_cache: none, use-phar: false
           - os: macos-latest
             php: '7.2'
           - os: macos-latest
-            wp: trunk
+            wp: latest
           - os: macos-latest
             dbtype: mysql
           - os: macos-latest
             object_cache: sqlite
-          - os: macos-latest
-            use-phar: false
             
-          # Only run one windows combination: php: 8.5, wp: latest, dbtype: sqlite, object_cache: none, use-phar: true
+          # Only run one windows combination: php: 8.5, wp: trunk, dbtype: sqlite, object_cache: none, use-phar: false
           - os: windows-latest
             php: '7.2'
           - os: windows-latest
-            wp: trunk
+            wp: latest
           - os: windows-latest
             dbtype: mysql
           - os: windows-latest
             object_cache: sqlite
-          - os: windows-latest
-            use-phar: false
             
     uses: ./.github/workflows/reusable-testing.yml
     with:
