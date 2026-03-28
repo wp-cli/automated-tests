@@ -60,9 +60,6 @@ jobs:
           - dbtype: mysql
             object_cache: sqlite
             
-          # SQLite runs only on WP latest and PHP 8.5
-          - dbtype: sqlite
-            wp: trunk
           - dbtype: sqlite
             php: '7.2'
             
@@ -104,22 +101,6 @@ jobs:
           - os: windows-latest
             object_cache: sqlite
 
-        include:
-          # Explicitly add back the single combinations for macos and windows to run without phar, overriding global exclusions.
-          - os: macos-latest
-            php: '8.5'
-            test-package: wp-cli-bundle
-            wp: trunk
-            dbtype: sqlite
-            object_cache: none
-            use-phar: false
-          - os: windows-latest
-            php: '8.5'
-            test-package: wp-cli-bundle
-            wp: trunk
-            dbtype: sqlite
-            object_cache: none
-            use-phar: false
             
     uses: ./.github/workflows/reusable-testing.yml
     with:
