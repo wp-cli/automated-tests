@@ -63,7 +63,7 @@ jobs:
         uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2
         with:
           php-version: '${{ inputs.php }}'
-          extensions: gd, imagick, mysql, zip, pdo_sqlite
+          extensions: gd, imagick, mysql, zip, pdo_sqlite, exif
           coverage: none
           tools: composer
 
