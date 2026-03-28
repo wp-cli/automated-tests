@@ -75,9 +75,9 @@ for RELEASE in $RELEASES; do
 
 	# Download binary and verify MD5 checksum.
 	BIN_FOLDER="$(mktemp -d)"
-	wget -O "${BIN_FOLDER}/wp-cli.phar.md5" "$MD5_URL"
+	curl -sLo "${BIN_FOLDER}/wp-cli.phar.md5" "$MD5_URL"
 	TARGET_MD5=$(cat "${BIN_FOLDER}/wp-cli.phar.md5")
-	wget -O "${BIN_FOLDER}/wp-cli.phar" "$PHAR_URL"
+	curl -sLo "${BIN_FOLDER}/wp-cli.phar" "$PHAR_URL"
 	if hash md5sum 2>/dev/null; then
 		DOWNLOAD_MD5=$(md5sum "${BIN_FOLDER}/wp-cli.phar" | cut -d ' ' -f 1)
 	else
