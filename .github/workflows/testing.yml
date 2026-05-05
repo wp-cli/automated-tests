@@ -19,7 +19,7 @@ jobs:
       matrix:
         php: ['7.2', '8.5']
         wp: ['latest', 'trunk']
-        dbtype: ['mysql', 'sqlite']
+        dbtype: ['mysql', 'sqlite', 'mariadb']
         object_cache: ['none', 'sqlite']
         use-phar: [false, true]
         os: ['ubuntu-22.04', 'macos-latest', 'windows-latest']
@@ -101,7 +101,24 @@ jobs:
           - os: windows-latest
             object_cache: sqlite
 
+          # Skip Windows tests for db-command to to environment configuration issues with SQLite.
+          - os: windows-latest
+            test-package: db-command
             
+          # Limit MariaDB runs to php: 8.5, wp: trunk, os: ubuntu-22.04, object_cache: none, use-phar: false
+          - dbtype: mariadb
+            php: '7.2'
+          - dbtype: mariadb
+            wp: latest
+          - dbtype: mariadb
+            os: macos-latest
+          - dbtype: mariadb
+            os: windows-latest
+          - dbtype: mariadb
+            object_cache: sqlite
+          - dbtype: mariadb
+            use-phar: true
+
     uses: ./.github/workflows/reusable-testing.yml
     with:
       test-package: ${{ matrix.test-package }}
