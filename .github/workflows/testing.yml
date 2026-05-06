@@ -20,7 +20,6 @@ jobs:
         php: ['7.2', '8.5']
         wp: ['latest', 'trunk']
         dbtype: ['mysql', 'sqlite', 'mariadb']
-        mysql: ['mysql-8.0']
         object_cache: ['none', 'sqlite']
         use-phar: [false, true]
         os: ['ubuntu-22.04', 'macos-latest', 'windows-latest']
@@ -108,19 +107,20 @@ jobs:
           - os: windows-latest
             test-package: db-command
             
-          # Globally exclude generated MariaDB + MySQL combinations
+          # Limit MariaDB runs to php: 8.5, wp: trunk, os: ubuntu-22.04, object_cache: none, use-phar: false
           - dbtype: mariadb
-            mysql: mysql-8.0
+            php: '7.2'
+          - dbtype: mariadb
+            wp: latest
+          - dbtype: mariadb
+            os: macos-latest
+          - dbtype: mariadb
+            os: windows-latest
+          - dbtype: mariadb
+            object_cache: sqlite
+          - dbtype: mariadb
+            use-phar: true
 
-        include:
-          # Include the single working MariaDB combination for all packages
-          - php: '8.5'
-            wp: trunk
-            dbtype: mariadb
-            mysql: mariadb-10.11
-            object_cache: none
-            use-phar: false
-            os: ubuntu-22.04
 
 
     uses: ./.github/workflows/reusable-testing.yml
@@ -132,5 +132,5 @@ jobs:
       object_cache: ${{ matrix.object_cache }}
       use-phar: ${{ matrix.use-phar }}
       os: ${{ matrix.os }}
-      mysql: ${{ matrix.mysql }}
+      mysql: ${{ matrix.dbtype == 'mariadb' && 'mariadb-10.11' || 'mysql-8.0' }}
 
