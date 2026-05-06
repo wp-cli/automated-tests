@@ -105,12 +105,6 @@ jobs:
             ${{ inputs.dbtype == 'mariadb' && '[client]' || '' }}
             ${{ inputs.dbtype == 'mariadb' && 'disable-ssl-verify-server-cert' || '' }}
 
-      - name: Trust GHA CA cert on Linux GHA
-        if: steps.check_files.outputs.files_exists == 'true' && inputs.dbtype == 'mariadb' && (inputs.os == 'ubuntu-22.04' || inputs.os == '')
-        run: |
-          sudo cp "${{ steps.setup-mysql.outputs.base-dir }}/var/ca.pem" /usr/local/share/ca-certificates/gha-ca.crt
-          sudo update-ca-certificates
-
       - name: Remove system MySQL binary
         if: steps.check_files.outputs.files_exists == 'true' && inputs.dbtype != 'sqlite'
         run: sudo rm -f /usr/bin/mysql /usr/bin/mysqldump
@@ -131,6 +125,8 @@ jobs:
           WP_CLI_TEST_DBTYPE: ${{ inputs.dbtype }}
           WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
           WP_CLI_TEST_DEBUG_BEHAT_ENV: 1
+          SSL_CERT_FILE: '${{ steps.setup-mysql.outputs.base-dir }}/var/ca.pem'
+          CURL_CA_BUNDLE: /etc/ssl/certs/ca-certificates.crt
         run: composer behat
 
       - name: Run Behat
@@ -140,4 +136,6 @@ jobs:
           WP_CLI_TEST_DBTYPE: ${{ inputs.dbtype }}
           TEST_PACKAGE: 'wp-cli/${{ inputs.test-package }}'
           WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
+          SSL_CERT_FILE: '${{ steps.setup-mysql.outputs.base-dir }}/var/ca.pem'
+          CURL_CA_BUNDLE: /etc/ssl/certs/ca-certificates.crt
         run: composer test
