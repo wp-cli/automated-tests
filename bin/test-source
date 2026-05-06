@@ -43,13 +43,15 @@ for REPO in $REPOS; do
 
 	echo "Testing package $REPO..."
 
-	BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER=${BUILD_DIR}/vendor/${REPO}/features php ${BUILD_DIR}/vendor/wp-cli/wp-cli-tests/utils/behat-tags.php)
+	FEATURES_FOLDER="${BUILD_DIR}/vendor/${REPO}/features"
+
+	BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER="$FEATURES_FOLDER" php "${BUILD_DIR}/vendor/wp-cli/wp-cli-tests/utils/behat-tags.php")
 	echo "Behat Tags: $BEHAT_TAGS"
 
 	set +e
-	"${BUILD_DIR}/vendor/bin/behat" --format progress $BEHAT_TAGS --strict  --suite $REPO
+	"${BUILD_DIR}/vendor/bin/behat" --format progress $BEHAT_TAGS --strict --suite $REPO
 	if [ $? -ne 0 ]; then
-		"${BUILD_DIR}/vendor/bin/behat" --format progress $BEHAT_TAGS --strict  --suite $REPO --rerun
+		"${BUILD_DIR}/vendor/bin/behat" --format progress $BEHAT_TAGS --strict --suite $REPO --rerun
 		if [ $? -ne 0 ]; then
 			FAILED_PACKAGES="$FAILED_PACKAGES ${RELEASE}:${REPO}"
 		fi

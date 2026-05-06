@@ -19,9 +19,10 @@ jobs:
       matrix:
         php: ['7.2', '8.5']
         wp: ['latest', 'trunk']
-        dbtype: ['mysql', 'sqlite']
+        dbtype: ['mysql', 'sqlite', 'mariadb']
         object_cache: ['none', 'sqlite']
         use-phar: [false, true]
+        os: ['ubuntu-22.04', 'macos-latest', 'windows-latest']
         test-package:
           - wp-cli-bundle
           - wp-cli
@@ -59,9 +60,6 @@ jobs:
           - dbtype: mysql
             object_cache: sqlite
             
-          # SQLite runs only on WP latest and PHP 8.5
-          - dbtype: sqlite
-            wp: trunk
           - dbtype: sqlite
             php: '7.2'
             
@@ -78,11 +76,53 @@ jobs:
             wp: trunk
           - use-phar: false
             wp: latest
+          - use-phar: true
+            php: '7.2'
             
           # Limit ancient php on trunk
           - php: '7.2'
             wp: trunk
             
+          # Only run one macos combination: php: 8.5, wp: trunk, dbtype: sqlite, object_cache: none, use-phar: false
+          - os: macos-latest
+            php: '7.2'
+          - os: macos-latest
+            wp: latest
+          - os: macos-latest
+            dbtype: mysql
+          - os: macos-latest
+            object_cache: sqlite
+            
+          # Only run one windows combination: php: 8.5, wp: trunk, dbtype: sqlite, object_cache: none, use-phar: false
+          - os: windows-latest
+            php: '7.2'
+          - os: windows-latest
+            wp: latest
+          - os: windows-latest
+            dbtype: mysql
+          - os: windows-latest
+            object_cache: sqlite
+
+          # Skip Windows tests for db-command to to environment configuration issues with SQLite.
+          - os: windows-latest
+            test-package: db-command
+            
+          # Limit MariaDB runs to php: 8.5, wp: trunk, os: ubuntu-22.04, object_cache: none, use-phar: false
+          - dbtype: mariadb
+            php: '7.2'
+          - dbtype: mariadb
+            wp: latest
+          - dbtype: mariadb
+            os: macos-latest
+          - dbtype: mariadb
+            os: windows-latest
+          - dbtype: mariadb
+            object_cache: sqlite
+          - dbtype: mariadb
+            use-phar: true
+
+
+
     uses: ./.github/workflows/reusable-testing.yml
     with:
       test-package: ${{ matrix.test-package }}
@@ -91,4 +131,6 @@ jobs:
       dbtype: ${{ matrix.dbtype }}
       object_cache: ${{ matrix.object_cache }}
       use-phar: ${{ matrix.use-phar }}
+      os: ${{ matrix.os }}
+      mysql: ${{ matrix.dbtype == 'mariadb' && 'mariadb-10.11' || 'mysql-8.0' }}
 
