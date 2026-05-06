@@ -25,6 +25,10 @@ on:
         type: string
         required: false
         default: 'ubuntu-22.04'
+      mysql:
+        type: string
+        required: false
+        default: ''
 
 jobs:
   run-test:
@@ -91,13 +95,15 @@ jobs:
         if: ${{ inputs.dbtype != 'sqlite' }}
         uses: shogo82148/actions-setup-mysql@9c42ca180d5f1dd4dceb54c23c5eda0384f4d265 # v1
         with:
-          mysql-version: '8.0' # Standard MySQL version for these tests
+          mysql-version: ${{ inputs.mysql || '8.0' }}
           auto-start: true
           root-password: ${{ env.WP_CLI_TEST_DBROOTPASS }}
           user: ${{ env.WP_CLI_TEST_DBUSER}}
           password: ${{ env.WP_CLI_TEST_DBPASS}}
           my-cnf: |
             default_authentication_plugin=mysql_native_password
+            ${{ inputs.dbtype == 'mariadb' && '[client]' || '' }}
+            ${{ inputs.dbtype == 'mariadb' && 'disable-ssl-verify-server-cert' || '' }}
 
       - name: Prepare test database
         if: steps.check_files.outputs.files_exists == 'true' && inputs.dbtype != 'sqlite'
