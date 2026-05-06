@@ -76,6 +76,8 @@ jobs:
             wp: trunk
           - use-phar: false
             wp: latest
+          - use-phar: true
+            php: '7.2'
             
           # Limit ancient php on trunk
           - php: '7.2'
