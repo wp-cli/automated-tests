@@ -20,10 +20,6 @@ if [ -z "$BUILD_DIR" ]; then
 	export BUILD_DIR="${GITHUB_WORKSPACE:-$(pwd)}"
 fi
 
-if [[ "$OS" == "Windows_NT" ]]; then
-	export BUILD_DIR=$(cygpath -w "$BUILD_DIR")
-fi
-
 if [ -z "$TEST_PACKAGE" -o "$TEST_PACKAGE" == "none" ]; then
 	echo "Skipping feature tests completely."
 	exit 0
@@ -48,9 +44,6 @@ for REPO in $REPOS; do
 	echo "Testing package $REPO..."
 
 	FEATURES_FOLDER="${BUILD_DIR}/vendor/${REPO}/features"
-	if [[ "$OS" == "Windows_NT" ]]; then
-		FEATURES_FOLDER=$(cygpath -w "$FEATURES_FOLDER")
-	fi
 
 	BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER="$FEATURES_FOLDER" php "${BUILD_DIR}/vendor/wp-cli/wp-cli-tests/utils/behat-tags.php")
 	echo "Behat Tags: $BEHAT_TAGS"
