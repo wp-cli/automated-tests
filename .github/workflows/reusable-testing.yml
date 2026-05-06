@@ -107,7 +107,9 @@ jobs:
 
       - name: Trust GHA CA cert on Linux GHA
         if: steps.check_files.outputs.files_exists == 'true' && inputs.dbtype == 'mariadb' && (inputs.os == 'ubuntu-22.04' || inputs.os == '')
-        run: cat "${{ steps.setup-mysql.outputs.base-dir }}/var/ca.pem" | sudo tee -a /etc/ssl/certs/ca-certificates.crt
+        run: |
+          sudo cp "${{ steps.setup-mysql.outputs.base-dir }}/var/ca.pem" /usr/local/share/ca-certificates/gha-ca.crt
+          sudo update-ca-certificates
 
       - name: Remove system MySQL binary
         if: steps.check_files.outputs.files_exists == 'true' && inputs.dbtype != 'sqlite'
