@@ -125,6 +125,7 @@ jobs:
           WP_CLI_TEST_DBTYPE: ${{ inputs.dbtype }}
           WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
           WP_CLI_TEST_DEBUG_BEHAT_ENV: 1
+          SSL_CERT_FILE: '${{ steps.setup-mysql.outputs.base-dir }}/var/ca.pem'
         run: composer behat
 
       - name: Run Behat
@@ -134,4 +135,5 @@ jobs:
           WP_CLI_TEST_DBTYPE: ${{ inputs.dbtype }}
           TEST_PACKAGE: 'wp-cli/${{ inputs.test-package }}'
           WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
+          SSL_CERT_FILE: '${{ steps.setup-mysql.outputs.base-dir }}/var/ca.pem'
         run: composer test
