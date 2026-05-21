@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.2', '8.5']
+        php: ['7.4', '8.5']
         wp: ['latest', 'trunk']
         dbtype: ['mysql', 'sqlite']
         object_cache: ['none', 'sqlite']
@@ -63,14 +63,14 @@ jobs:
           - dbtype: sqlite
             wp: trunk
           - dbtype: sqlite
-            php: '7.2'
+            php: '7.4'
             
           # Object cache runs only with WP latest
           - object_cache: sqlite
             wp: trunk
             
           # A1: object_cache=sqlite only on PHP 8.5
-          - php: '7.2'
+          - php: '7.4'
             object_cache: sqlite
             
           # Phar usage match defaults 
@@ -80,7 +80,7 @@ jobs:
             wp: latest
             
           # Limit ancient php on trunk
-          - php: '7.2'
+          - php: '7.4'
             wp: trunk
             
     uses: ./.github/workflows/reusable-testing.yml
