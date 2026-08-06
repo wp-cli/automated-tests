@@ -10,6 +10,14 @@ on:
   schedule:
     - cron:  '0 0 * * *' # Run every day at midnight.
 
+# Each run fans out to 155 jobs, so overlapping runs are expensive.
+# Pull requests group per branch so a new push supersedes the previous run.
+# Everything else groups per event and commit, so a push to the default branch
+# and the nightly schedule never cancel one another.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event_name == 'pull_request' && github.ref || github.sha }}
+  cancel-in-progress: true
+
 jobs:
 
   functional:
