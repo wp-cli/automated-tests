@@ -11,11 +11,12 @@ on:
     - cron:  '0 0 * * *' # Run every day at midnight.
 
 # Each run fans out to 155 jobs, so overlapping runs are expensive.
-# Pull requests group per branch so a new push supersedes the previous run.
-# Everything else groups per event and commit, so a push to the default branch
-# and the nightly schedule never cancel one another.
+# Keying on the ref lets a new push supersede the run it replaces, for pull
+# requests and branches alike. Keying on the event as well keeps a push to the
+# default branch and the nightly schedule from cancelling each other, since both
+# report the same ref.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event_name == 'pull_request' && github.ref || github.sha }}
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
