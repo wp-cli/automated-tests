@@ -12,12 +12,17 @@ on:
       wp:
         type: string
         required: true
+      # Retained as optional inputs rather than removed, so a database or object
+      # cache leg can be reinstated without reshaping the workflow. The matrix no
+      # longer varies them: storage backends are covered per-package.
       dbtype:
         type: string
-        required: true
+        required: false
+        default: 'mysql'
       object_cache:
         type: string
-        required: true
+        required: false
+        default: 'none'
       use-phar:
         type: boolean
         required: true
@@ -26,6 +31,9 @@ jobs:
   run-test:
     name: WP ${{ inputs.wp }} | PHP ${{ inputs.php }} | ${{ inputs.dbtype == 'sqlite' && 'SQLite' || inputs.dbtype == 'mysql' && 'MySQL' || 'MariaDB' }}${{ inputs.use-phar && ' (Phar)' || '' }}${{ inputs.object_cache == 'sqlite' && ' (Obj Cache)' || '' }}
     runs-on: ubuntu-22.04
+    # Every leg gates now. The condition previously exempted the SQLite and object
+    # cache legs, which is 62 of the 217 jobs — they consumed runner time without
+    # ever being able to fail the build. Those legs are gone rather than silenced.
     continue-on-error: ${{ inputs.dbtype == 'sqlite' || inputs.object_cache == 'sqlite' }}
     timeout-minutes: 90
 
