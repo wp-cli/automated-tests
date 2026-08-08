@@ -31,9 +31,9 @@ jobs:
   run-test:
     name: WP ${{ inputs.wp }} | PHP ${{ inputs.php }} | ${{ inputs.dbtype == 'sqlite' && 'SQLite' || inputs.dbtype == 'mysql' && 'MySQL' || 'MariaDB' }}${{ inputs.use-phar && ' (Phar)' || '' }}${{ inputs.object_cache == 'sqlite' && ' (Obj Cache)' || '' }}
     runs-on: ubuntu-22.04
-    # Every leg gates now. The condition previously exempted the SQLite and object
-    # cache legs, which is 62 of the 217 jobs — they consumed runner time without
-    # ever being able to fail the build. Those legs are gone rather than silenced.
+    # In this repository’s current matrix, every leg gates. The `continue-on-error`
+    # condition is retained so callers can still run optional SQLite/object-cache
+    # legs without reshaping the workflow, if needed.
     continue-on-error: ${{ inputs.dbtype == 'sqlite' || inputs.object_cache == 'sqlite' }}
     timeout-minutes: 90
 
