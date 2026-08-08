@@ -82,11 +82,24 @@ jobs:
           - php: '7.4'
             object_cache: sqlite
             
-          # Phar usage match defaults 
-          - use-phar: true
-            wp: trunk
-          - use-phar: false
+          # Phar and source are separate dimensions, not aliases for a WP
+          # version. Previously `use-phar: true` was excluded on trunk and
+          # `use-phar: false` on latest, which made the two fully determined by
+          # each other: the Phar was only ever tested against WP latest and
+          # source only against trunk, so source-on-latest — the ordinary local
+          # setup — went untested entirely.
+          #
+          # Cross them instead, dropping only the combinations that add no
+          # signal, which keeps the run under the 256-job matrix cap. What this
+          # buys is source against WP latest, and the Phar against trunk as an
+          # early warning that a WP change has broken the released binary.
+          # Neither of those runs with continue-on-error, so both can fail the
+          # build.
+          - php: '7.4'
             wp: latest
+            use-phar: false
+          - dbtype: sqlite
+            use-phar: false
             
           # Limit ancient php on trunk
           - php: '7.4'
