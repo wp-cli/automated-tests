@@ -31,6 +31,23 @@ The following options can be set:
 * **`stable `** - Use the latest stable phar release.
 * **`all`** - Use both the latest stable release phar as well as the nightly phar.
 
+### JUnit reports
+
+`$WP_CLI_TEST_JUNIT_DIR` writes JUnit reports to the given directory, in addition to the progress output that is always printed. This is useful to compare the results of two runs, as the reports name every scenario along with the file and line it is defined on, which the progress output does not.
+
+```bash
+WP_CLI_TEST_JUNIT_DIR=build/junit TEST_PACKAGE=wp-cli/entity-command composer test
+```
+
+Behat names each report after the suite it belongs to, so one package results in one report:
+
+```
+build/junit/wp_cli_entity_command.xml
+build/junit/rerun/wp_cli_entity_command.xml
+```
+
+Failed scenarios are run a second time. Reports of that rerun are written to the `rerun` subdirectory, as they only cover the scenarios that failed the first time and would otherwise overwrite the full report of the package. A scenario that is reported as failed in the first report but does not appear in the rerun report passed on the second attempt, and was therefore flaky rather than failing.
+
 ### Automated Builds
 
 This repository is being rebuilt through a Travis CI cron job every 24 hours to post test results in Emails and Slack.

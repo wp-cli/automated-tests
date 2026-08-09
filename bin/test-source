@@ -9,6 +9,16 @@
 # - "all": The framework as well as all bundled commands are tested.
 # - "commands": Only the command packages are tested.
 # - <package name>: Only the package named <package name> is tested.
+#
+# $WP_CLI_TEST_JUNIT_DIR optionally writes JUnit reports to the given directory,
+# in addition to the progress output. Behat names each report after the suite it
+# belongs to, so one package results in one report.
+#
+# Reports of the rerun of the failed scenarios are written to a "rerun"
+# subdirectory, as they only cover the scenarios that failed the first time and
+# would otherwise overwrite the full report of the package. A scenario that is
+# reported as failed in the first report but does not appear in the rerun report
+# passed on the second attempt, and was therefore flaky rather than failing.
 
 set -e
 
@@ -39,6 +49,20 @@ if [ "$TEST_PACKAGE" != "all" -a "$TEST_PACKAGE" != "commands" ]; then
 	REPOS="$TEST_PACKAGE"
 fi
 
+JUNIT_ARGS=()
+JUNIT_RERUN_ARGS=()
+
+if [ -n "$WP_CLI_TEST_JUNIT_DIR" ]; then
+	mkdir -p "${WP_CLI_TEST_JUNIT_DIR}/rerun"
+
+	# The first --out belongs to the progress format and keeps it on stdout, the
+	# second one is the directory the JUnit reports are written to.
+	JUNIT_ARGS=(--format junit --out std --out "${WP_CLI_TEST_JUNIT_DIR}")
+	JUNIT_RERUN_ARGS=(--format junit --out std --out "${WP_CLI_TEST_JUNIT_DIR}/rerun")
+
+	echo "Writing JUnit reports to ${WP_CLI_TEST_JUNIT_DIR}"
+fi
+
 for REPO in $REPOS; do
 
 	echo "Testing package $REPO..."
@@ -47,9 +71,9 @@ for REPO in $REPOS; do
 	echo "Behat Tags: $BEHAT_TAGS"
 
 	set +e
-	"${BUILD_DIR}/vendor/bin/behat" --format progress $BEHAT_TAGS --strict  --suite $REPO
+	"${BUILD_DIR}/vendor/bin/behat" --format progress "${JUNIT_ARGS[@]}" $BEHAT_TAGS --strict  --suite $REPO
 	if [ $? -ne 0 ]; then
-		"${BUILD_DIR}/vendor/bin/behat" --format progress $BEHAT_TAGS --strict  --suite $REPO --rerun
+		"${BUILD_DIR}/vendor/bin/behat" --format progress "${JUNIT_RERUN_ARGS[@]}" $BEHAT_TAGS --strict  --suite $REPO --rerun
 		if [ $? -ne 0 ]; then
 			FAILED_PACKAGES="$FAILED_PACKAGES ${RELEASE}:${REPO}"
 		fi
