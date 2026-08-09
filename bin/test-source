@@ -16,9 +16,9 @@
 #
 # Reports of the rerun of the failed scenarios are written to a "rerun"
 # subdirectory, as they only cover the scenarios that failed the first time and
-# would otherwise overwrite the full report of the package. A scenario that is
-# reported as failed in the first report but does not appear in the rerun report
-# passed on the second attempt, and was therefore flaky rather than failing.
+# would otherwise overwrite the full report of the package. The rerun report
+# holds a result for every scenario it ran: one reported as passed there was
+# flaky, one reported as failed is failing consistently.
 
 set -e
 
@@ -53,6 +53,10 @@ JUNIT_ARGS=()
 JUNIT_RERUN_ARGS=()
 
 if [ -n "$WP_CLI_TEST_JUNIT_DIR" ]; then
+	# A package that passes does not produce a rerun report at all, so a report
+	# left behind by an earlier run would be read as belonging to this one.
+	rm -f "${WP_CLI_TEST_JUNIT_DIR}"/*.xml "${WP_CLI_TEST_JUNIT_DIR}"/rerun/*.xml
+
 	mkdir -p "${WP_CLI_TEST_JUNIT_DIR}/rerun"
 
 	# The first --out belongs to the progress format and keeps it on stdout, the
