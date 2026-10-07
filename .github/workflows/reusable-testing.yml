@@ -59,6 +59,24 @@ jobs:
         id: check_files
         run: echo "files_exists=$([ -f composer.json ] && [ -f behat.yml ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
 
+      # Downloading and starting the database server is the slowest part of the
+      # setup, and nothing needs it until the test database is prepared, so it
+      # runs in the background alongside the PHP and Composer setup below. The
+      # action only downloads its own binaries, so it cannot contend with apt.
+      - name: Setup MySQL Server
+        id: setup-mysql
+        if: ${{ inputs.dbtype != 'sqlite' }}
+        background: true
+        uses: shogo82148/actions-setup-mysql@334a29f22d90428932f75b11e0d5fcc00bb6b4f4 # v1
+        with:
+          mysql-version: '8.0' # Standard MySQL version for these tests
+          auto-start: true
+          root-password: ${{ env.WP_CLI_TEST_DBROOTPASS }}
+          user: ${{ env.WP_CLI_TEST_DBUSER}}
+          password: ${{ env.WP_CLI_TEST_DBPASS}}
+          my-cnf: |
+            default_authentication_plugin=mysql_native_password
+
       # Ghostscript ships with the GitHub hosted images, so the `apt-get update`
       # this used to run unconditionally cost every job ~25s for a package that
       # was already there. Keep the install as a fallback in case a future image
@@ -103,18 +121,10 @@ jobs:
         run: |
           sudo sed -i 's/^.*policy.*coder.*none.*PDF.*//' /etc/ImageMagick-6/policy.xml
 
-      - name: Setup MySQL Server
-        id: setup-mysql
-        if: ${{ inputs.dbtype != 'sqlite' }}
-        uses: shogo82148/actions-setup-mysql@334a29f22d90428932f75b11e0d5fcc00bb6b4f4 # v1
-        with:
-          mysql-version: '8.0' # Standard MySQL version for these tests
-          auto-start: true
-          root-password: ${{ env.WP_CLI_TEST_DBROOTPASS }}
-          user: ${{ env.WP_CLI_TEST_DBUSER}}
-          password: ${{ env.WP_CLI_TEST_DBPASS}}
-          my-cnf: |
-            default_authentication_plugin=mysql_native_password
+      # Waits for the database server started in the background above. `wait-all`
+      # rather than `wait: setup-mysql`, as the step is skipped for SQLite legs.
+      - name: Wait for the MySQL server
+        wait-all:
 
       - name: Prepare test database
         if: steps.check_files.outputs.files_exists == 'true' && inputs.dbtype != 'sqlite'
