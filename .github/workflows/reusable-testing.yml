@@ -26,6 +26,10 @@ on:
       use-phar:
         type: boolean
         required: true
+      parallel:
+        type: number
+        required: false
+        default: 4
 
 jobs:
   run-test:
@@ -149,4 +153,8 @@ jobs:
           WP_CLI_TEST_DBTYPE: ${{ inputs.dbtype }}
           TEST_PACKAGE: 'wp-cli/${{ inputs.test-package }}'
           WP_CLI_TEST_DBSOCKET: '${{ steps.setup-mysql.outputs.base-dir }}/tmp/mysql.sock'
+          # Spread the scenarios of the package over as many workers as the runner has cores,
+          # each with a test database of its own, as prepared by `composer prepare-tests`.
+          # Not in Docker containers, as these would not see the Phar under test.
+          WP_CLI_TEST_PARALLEL: ${{ inputs.parallel }}
         run: composer test
