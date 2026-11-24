@@ -9,6 +9,16 @@
 # - "all": The framework as well as all bundled commands are tested.
 # - "commands": Only the command packages are tested.
 # - <package name>: Only the package named <package name> is tested.
+#
+# $WP_CLI_TEST_JUNIT_DIR optionally writes JUnit reports to the given directory,
+# in addition to the progress output. Behat names each report after the suite it
+# belongs to, so one package results in one report.
+#
+# Reports of the rerun of the failed scenarios are written to a "rerun"
+# subdirectory, as they only cover the scenarios that failed the first time and
+# would otherwise overwrite the full report of the package. The rerun report
+# holds a result for every scenario it ran: one reported as passed there was
+# flaky, one reported as failed is failing consistently.
 
 set -e
 
@@ -39,6 +49,32 @@ if [ "$TEST_PACKAGE" != "all" -a "$TEST_PACKAGE" != "commands" ]; then
 	REPOS="$TEST_PACKAGE"
 fi
 
+JUNIT_ARGS=()
+JUNIT_RERUN_ARGS=()
+
+if [ -n "$WP_CLI_TEST_JUNIT_DIR" ]; then
+	# A package that passes does not produce a rerun report at all, so a report
+	# left behind by an earlier run would be read as belonging to this one.
+	rm -f "${WP_CLI_TEST_JUNIT_DIR}"/*.xml "${WP_CLI_TEST_JUNIT_DIR}"/rerun/*.xml
+
+	mkdir -p "${WP_CLI_TEST_JUNIT_DIR}/rerun"
+
+	# Passing any format replaces the default progress format of run-behat-tests, so
+	# it is passed here as well. The first --out keeps the progress output on stdout,
+	# the second one is the directory the JUnit reports are written to.
+	JUNIT_ARGS=(--format progress --format junit --out std --out "${WP_CLI_TEST_JUNIT_DIR}")
+	JUNIT_RERUN_ARGS=(--format progress --format junit --out std --out "${WP_CLI_TEST_JUNIT_DIR}/rerun")
+
+	# Parallel workers would each write the report of the same suite to the same
+	# file, leaving only the scenarios of the worker that finished last.
+	if [ -n "$WP_CLI_TEST_PARALLEL" ] && [ "$WP_CLI_TEST_PARALLEL" != "1" ]; then
+		echo "JUnit reports cannot be written by parallel workers, running the scenarios one after the other."
+		unset WP_CLI_TEST_PARALLEL
+	fi
+
+	echo "Writing JUnit reports to ${WP_CLI_TEST_JUNIT_DIR}"
+fi
+
 for REPO in $REPOS; do
 
 	echo "Testing package $REPO..."
@@ -48,9 +84,9 @@ for REPO in $REPOS; do
 	export BEHAT_FEATURES_FOLDER="vendor/${REPO}/features"
 
 	set +e
-	"${BUILD_DIR}/vendor/bin/run-behat-tests" --suite "$REPO"
+	"${BUILD_DIR}/vendor/bin/run-behat-tests" --suite "$REPO" "${JUNIT_ARGS[@]}"
 	if [ $? -ne 0 ]; then
-		"${BUILD_DIR}/vendor/bin/run-behat-tests" --suite "$REPO" --rerun
+		"${BUILD_DIR}/vendor/bin/run-behat-tests" --suite "$REPO" --rerun "${JUNIT_RERUN_ARGS[@]}"
 		if [ $? -ne 0 ]; then
 			FAILED_PACKAGES="$FAILED_PACKAGES ${RELEASE}:${REPO}"
 		fi
