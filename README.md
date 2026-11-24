@@ -53,6 +53,8 @@ The rerun report holds a result for every scenario it ran, which is what tells a
 * A scenario reported as `failed` in the report of the package and as `passed` in the rerun report failed once and then passed, and was therefore flaky.
 * A scenario reported as `failed` in both is failing consistently.
 
+Parallel workers would each overwrite the report of the package with their own share of its scenarios, so `$WP_CLI_TEST_PARALLEL` is ignored while JUnit reports are written and the scenarios run one after the other.
+
 Reports left behind by an earlier run are removed before the tests start, so that the directory only ever describes the run that wrote it. A package that passes produces no rerun report at all, which would otherwise leave a stale one in place.
 
 ### Automated Builds

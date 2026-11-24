@@ -37,7 +37,7 @@ fi
 
 if [ "$TEST_PACKAGE" == "all" ]; then
 	REPOS="wp-cli/wp-cli-bundle
-wp-cli-/wp-cli
+wp-cli/wp-cli
 $(cat ${BUILD_DIR}/vendor/wp-cli/wp-cli-bundle/composer.json | grep -oE "wp-cli/([a-z\-]*)-command")"
 fi
 
@@ -59,10 +59,18 @@ if [ -n "$WP_CLI_TEST_JUNIT_DIR" ]; then
 
 	mkdir -p "${WP_CLI_TEST_JUNIT_DIR}/rerun"
 
-	# The first --out belongs to the progress format and keeps it on stdout, the
-	# second one is the directory the JUnit reports are written to.
-	JUNIT_ARGS=(--format junit --out std --out "${WP_CLI_TEST_JUNIT_DIR}")
-	JUNIT_RERUN_ARGS=(--format junit --out std --out "${WP_CLI_TEST_JUNIT_DIR}/rerun")
+	# Passing any format replaces the default progress format of run-behat-tests, so
+	# it is passed here as well. The first --out keeps the progress output on stdout,
+	# the second one is the directory the JUnit reports are written to.
+	JUNIT_ARGS=(--format progress --format junit --out std --out "${WP_CLI_TEST_JUNIT_DIR}")
+	JUNIT_RERUN_ARGS=(--format progress --format junit --out std --out "${WP_CLI_TEST_JUNIT_DIR}/rerun")
+
+	# Parallel workers would each write the report of the same suite to the same
+	# file, leaving only the scenarios of the worker that finished last.
+	if [ -n "$WP_CLI_TEST_PARALLEL" ] && [ "$WP_CLI_TEST_PARALLEL" != "1" ]; then
+		echo "JUnit reports cannot be written by parallel workers, running the scenarios one after the other."
+		unset WP_CLI_TEST_PARALLEL
+	fi
 
 	echo "Writing JUnit reports to ${WP_CLI_TEST_JUNIT_DIR}"
 fi
@@ -71,13 +79,14 @@ for REPO in $REPOS; do
 
 	echo "Testing package $REPO..."
 
-	BEHAT_TAGS=$(BEHAT_FEATURES_FOLDER=${BUILD_DIR}/vendor/${REPO}/features php ${BUILD_DIR}/vendor/wp-cli/wp-cli-tests/utils/behat-tags.php)
-	echo "Behat Tags: $BEHAT_TAGS"
+	# The test runner of wp-cli/wp-cli-tests derives the environment-specific tags from the
+	# features of the package, and spreads its scenarios over WP_CLI_TEST_PARALLEL workers.
+	export BEHAT_FEATURES_FOLDER="vendor/${REPO}/features"
 
 	set +e
-	"${BUILD_DIR}/vendor/bin/behat" --format progress "${JUNIT_ARGS[@]}" $BEHAT_TAGS --strict  --suite $REPO
+	"${BUILD_DIR}/vendor/bin/run-behat-tests" --suite "$REPO" "${JUNIT_ARGS[@]}"
 	if [ $? -ne 0 ]; then
-		"${BUILD_DIR}/vendor/bin/behat" --format progress "${JUNIT_RERUN_ARGS[@]}" $BEHAT_TAGS --strict  --suite $REPO --rerun
+		"${BUILD_DIR}/vendor/bin/run-behat-tests" --suite "$REPO" --rerun "${JUNIT_RERUN_ARGS[@]}"
 		if [ $? -ne 0 ]; then
 			FAILED_PACKAGES="$FAILED_PACKAGES ${RELEASE}:${REPO}"
 		fi

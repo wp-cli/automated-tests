@@ -10,6 +10,15 @@ on:
   schedule:
     - cron:  '0 0 * * *' # Run every day at midnight.
 
+# Each run fans out to 155 jobs, so overlapping runs are expensive.
+# Keying on the ref lets a new push supersede the run it replaces, for pull
+# requests and branches alike. Keying on the event as well keeps a push to the
+# default branch and the nightly schedule from cancelling each other, since both
+# report the same ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
 
   functional:
@@ -19,8 +28,6 @@ jobs:
       matrix:
         php: ['7.4', '8.5']
         wp: ['latest', 'trunk']
-        dbtype: ['mysql', 'sqlite']
-        object_cache: ['none', 'sqlite']
         use-phar: [false, true]
         test-package:
           - wp-cli-bundle
@@ -55,40 +62,19 @@ jobs:
           - super-admin-command
           - widget-command
         exclude:
-          # Object cache runs only on sqlite dbtype
-          - dbtype: mysql
-            object_cache: sqlite
-            
-          # SQLite runs only on WP latest and PHP 8.5
-          - dbtype: sqlite
-            wp: trunk
-          - dbtype: sqlite
-            php: '7.4'
-            
-          # Object cache runs only with WP latest
-          - object_cache: sqlite
-            wp: trunk
-            
-          # A1: object_cache=sqlite only on PHP 8.5
-          - php: '7.4'
-            object_cache: sqlite
-            
-          # Phar usage match defaults 
-          - use-phar: true
-            wp: trunk
-          - use-phar: false
-            wp: latest
-            
-          # Limit ancient php on trunk
+          # PHP 7.4 is covered per-package across the full version matrix. Keep a
+          # single bundle-integration leg for it — enough to catch a package
+          # raising its PHP requirement and breaking `composer install` for the
+          # bundle, which is the one failure only this repository sees.
           - php: '7.4'
             wp: trunk
-            
+          - php: '7.4'
+            use-phar: false
+
     uses: ./.github/workflows/reusable-testing.yml
     with:
       test-package: ${{ matrix.test-package }}
       php: ${{ matrix.php }}
       wp: ${{ matrix.wp }}
-      dbtype: ${{ matrix.dbtype }}
-      object_cache: ${{ matrix.object_cache }}
       use-phar: ${{ matrix.use-phar }}
 
