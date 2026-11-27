@@ -30,6 +30,15 @@ if [ -z "$BUILD_DIR" ]; then
 	export BUILD_DIR="${GITHUB_WORKSPACE:-$(pwd)}"
 fi
 
+# An archive supplied through WP_CLI_TEST_CORE_ZIP is usually a development build,
+# which has no version to resolve against WordPress.org. Treat it as trunk, so that
+# no version specific scenarios are skipped. Set WP_VERSION explicitly when the
+# archive holds a specific release. Older versions of wp-cli/wp-cli-tests resolve
+# an unset WP_VERSION to the latest release, so this cannot be left to them.
+if [ -z "$WP_VERSION" ] && [ -n "$WP_CLI_TEST_CORE_ZIP" ]; then
+	export WP_VERSION="trunk"
+fi
+
 if [ -z "$TEST_PACKAGE" -o "$TEST_PACKAGE" == "none" ]; then
 	echo "Skipping feature tests completely."
 	exit 0
